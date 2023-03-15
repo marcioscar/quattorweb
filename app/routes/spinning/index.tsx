@@ -64,7 +64,7 @@ export default function Index() {
   return (
     <div className="h-screen w-full bg-stone-100 font-Roboto ">
       <div className="bg-gradient-to-r from-[#2BC0E4] to-[#EAECC6]">
-        <div className="text-gray-600 body-font bg-no-repeat min-h-screen bg-contain bg-center bg-[url('/bola50.svg')]">
+        <div className="text-gray-600  body-font bg-no-repeat min-h-screen  bg-contain   bg-bottom bg-[url('/spin.svg')]">
           <Navbar />
 
           <div className="h-full mt-24 items-center flex flex-col gap-y-4">
