@@ -21,11 +21,7 @@ export const getSpinning = async () => {
 export const getAgendamentos = async () => {
   var nowDate = new Date();
   var date =
-    nowDate.getFullYear() +
-    "/" +
-    (nowDate.getMonth() + 1) +
-    "/" +
-    nowDate.getDate();
+    nowDate.getFullYear() + "/" + nowDate.getMonth() + "/" + nowDate.getDate();
 
   return prisma.reservas.findMany({
     where: {
