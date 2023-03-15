@@ -29,7 +29,7 @@ export const getAgendamentos = async () => {
   console.log(date);
   return prisma.reservas.findMany({
     where: {
-      data: new Date("2023/3/15"),
+      data: new Date("2023/03/15"),
     },
   });
 };
