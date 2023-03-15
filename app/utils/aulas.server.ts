@@ -18,20 +18,23 @@ export const getSpinning = async () => {
   });
 };
 
-export const getAgendamentos = async () => {
-  var nowDate = new Date();
-  var date =
-    nowDate.getFullYear() +
-    "/" +
-    (nowDate.getMonth() + 1) +
-    "/" +
-    nowDate.getDate();
+// export const getAgendamentos = async () => {
+//   var nowDate = new Date();
+//   var date =
+//     nowDate.getFullYear() +
+//     "/" +
+//     (nowDate.getMonth() + 1) +
+//     "/" +
+//     nowDate.getDate();
 
-  return prisma.reservas.findMany({
-    where: {
-      data: new Date(date),
-    },
-  });
+//   return prisma.reservas.findMany({
+//     where: {
+//       data: new Date(date),
+//     },
+//   });
+// };
+export const getAgendamentos = async () => {
+  return prisma.reservas.findMany();
 };
 
 export const createAgendamento = async (agenda: any) => {
