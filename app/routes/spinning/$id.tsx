@@ -55,7 +55,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Spinning() {
   const { aluno, aulas, agendamentos } = useLoaderData();
   const alunoAgendado = useActionData();
-
+  console.log(aulas);
   const id = aluno.idMember;
   const now = new Date();
   const agora = moment();
@@ -68,6 +68,12 @@ export default function Spinning() {
     e.alunos.some((aluno: any) => aluno.idMember === id)
   );
 
+  // var result = _.mapValues(aulas, function (value, key) {
+  //   return { start: value.start, turma: value.turma };
+  // });
+
+  // console.log(_.flatMap(result));
+
   const aula730 = _.filter(agendamentos, ["Hora", "07:30"]);
   const alunos730 = _.flatten(aula730.map((dt: any) => dt.alunos)).length;
 
@@ -77,7 +83,6 @@ export default function Spinning() {
   return (
     <>
       <Navbar />
-
       <div className="px-2 mx-auto ">
         <div className="text-center">
           <img
