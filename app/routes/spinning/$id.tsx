@@ -17,7 +17,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const aluno = await getAluno(Number(params.id));
   const aulas = await getSpinning();
   const agendamentos = await getAgendamentos();
-
   return json({ aluno, aulas, agendamentos });
 };
 
