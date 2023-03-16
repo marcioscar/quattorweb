@@ -19,23 +19,21 @@ export const getSpinning = async () => {
 };
 
 export const getAgendamentos = async () => {
-  var nowDate = new Date();
+  // var nowDate = new Date();
   var nova = new Date()
     .toLocaleString("en-ZA", {
       timeZone: "America/Sao_Paulo",
     })
     .slice(0, 10);
 
-  console.log(nova);
   // console.log(nowDate);
-  var date =
-    nowDate.getFullYear() +
-    "/" +
-    (nowDate.getMonth() + 1) +
-    "/" +
-    nowDate.getDate();
+  // var date =
+  //   nowDate.getFullYear() +
+  //   "/" +
+  //   (nowDate.getMonth() + 1) +
+  //   "/" +
+  //   nowDate.getDate();
 
-  console.log(date);
   return prisma.reservas.findMany({
     where: {
       data: new Date(nova),

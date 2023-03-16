@@ -121,31 +121,31 @@ export default function Spinning() {
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0  ">
                           <button
-                            // disabled={
-                            //   aula.start === "07:30"
-                            //     ? moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() > 0.5 ||
-                            //       moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() < 0 ||
-                            //       +alunos730 > 17
-                            //     : moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() > 0.5 ||
-                            //       moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() < 0 ||
-                            //       +alunos19 > 17
-                            // }
+                            disabled={
+                              aula.start === "07:30"
+                                ? moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() > 0.5 ||
+                                  moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() < 0 ||
+                                  +alunos730 > 17
+                                : moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() > 0.5 ||
+                                  moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() < 0 ||
+                                  +alunos19 > 17
+                            }
                             // disabled={
                             //   aula.start === "07:30"
                             //     ? +aula.start.slice(0, 2) - +horaCerta > 1 ||
