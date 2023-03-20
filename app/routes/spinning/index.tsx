@@ -68,7 +68,7 @@ export default function Index() {
           <Navbar />
 
           <div className="h-full mt-24 items-center flex flex-col gap-y-4">
-            <Form method="post" className="rounded-2xl bg-slate-500 p-6 w-96">
+            <Form method="post" className="rounded-2xl bg-slate-600 p-6 w-96">
               <label
                 htmlFor="matricula"
                 className="text-white font-semibold mb-9 ">
