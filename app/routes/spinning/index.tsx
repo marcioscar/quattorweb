@@ -63,15 +63,16 @@ export default function Index() {
 
   return (
     <div className="h-screen w-full bg-stone-100 font-Roboto ">
-      <div className="bg-gradient-to-r from-[#e58c10] to-[#fbfebd]">
-        <div className="text-gray-600  body-font bg-no-repeat min-h-screen  bg-contain   bg-bottom bg-[url('/spinning2.png')]">
+      {/* <div className="bg-gradient-to-r from-[#e58c10] to-[#fbfebd]"> */}
+      <div className="bg-orange-400">
+        <div className="text-gray-600 body-font bg-no-repeat min-h-screen bg-contain bg-bottom bg-[url('/spinning2.png')]">
           <Navbar />
 
-          <div className="h-full mt-24 items-center flex flex-col gap-y-4">
-            <Form method="post" className="rounded-2xl bg-slate-600 p-6 w-96">
-              <label
-                htmlFor="matricula"
-                className="text-white font-semibold mb-9 ">
+          <div className="h-full  mt-24 items-center flex flex-col gap-y-4">
+            <Form
+              method="post"
+              className="rounded-2xl bg-white bg-opacity-25  p-6 md:w-1/2 w-10/12">
+              <label htmlFor="matricula" className=" font-semibold mb-9 ">
                 Número de Matricula
               </label>
               <div className="relative  my-4 flex w-full flex-wrap items-stretch mb-3">
