@@ -105,7 +105,7 @@ export default function Index() {
                   className={
                     "" + transition.state === "loading"
                       ? "rounded-xl mt-2  bg-blue-600 px-3 py-2 text-white font-semibold"
-                      : "rounded-xl mt-2  bg-orange-600 px-3 py-2 text-white font-semibold hover:bg-orange-400 hover:-translate-y-1"
+                      : "rounded-xl mt-2  bg-green-400 px-3 py-2  font-semibold hover:bg-orange-400 hover:-translate-y-1"
                   }>
                   {transition.state === "submitting"
                     ? "Localizando..."
