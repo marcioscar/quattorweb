@@ -127,38 +127,35 @@ export default function Spinning() {
                           <button
                             disabled={
                               aula.start === "07:30"
-                                ? moment
-                                    .duration(
-                                      moment(aula.start, "HH:mm:ss").diff(agora)
-                                    )
-                                    .asHours() > 0.5 ||
-                                  moment
-                                    .duration(
-                                      moment(aula.start, "HH:mm:ss").diff(agora)
-                                    )
-                                    .asHours() < 0 ||
-                                  +alunos730 > 17
-                                : moment
-                                    .duration(
-                                      moment(aula.start, "HH:mm:ss").diff(agora)
-                                    )
-                                    .asHours() > 0.5 ||
-                                  moment
-                                    .duration(
-                                      moment(aula.start, "HH:mm:ss").diff(agora)
-                                    )
-                                    .asHours() < 0 ||
-                                  +alunos19 > 17
+                                ? +alunos730 > 17
+                                : +alunos19 > 17
                             }
                             // disabled={
                             //   aula.start === "07:30"
-                            //     ? +aula.start.slice(0, 2) - +horaCerta > 1 ||
-                            //       +aula.start.slice(0, 2) - +horaCerta < 0 ||
+                            //     ? moment
+                            //         .duration(
+                            //           moment(aula.start, "HH:mm:ss").diff(agora)
+                            //         )
+                            //         .asHours() > 0.5 ||
+                            //       moment
+                            //         .duration(
+                            //           moment(aula.start, "HH:mm:ss").diff(agora)
+                            //         )
+                            //         .asHours() < 0 ||
                             //       +alunos730 > 17
-                            //     : +aula.start.slice(0, 2) - +horaCerta > 1 ||
-                            //       +aula.start.slice(0, 2) - +horaCerta < 0 ||
+                            //     : moment
+                            //         .duration(
+                            //           moment(aula.start, "HH:mm:ss").diff(agora)
+                            //         )
+                            //         .asHours() > 0.5 ||
+                            //       moment
+                            //         .duration(
+                            //           moment(aula.start, "HH:mm:ss").diff(agora)
+                            //         )
+                            //         .asHours() < 0 ||
                             //       +alunos19 > 17
                             // }
+
                             className="bg-green-500 rounded-full px-2 pt-2.5 pb-2  disabled:bg-slate-400 disabled:cursor-not-allowed disabled:opacity-40 text-white active:bg-orange-600 font-bold uppercase text-sm  py-1  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="submit"
                             name="_action"
