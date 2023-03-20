@@ -4,7 +4,7 @@ import { Form, useActionData, useTransition } from "@remix-run/react";
 import { Navbar } from "~/components/Navbar";
 import { getAluno } from "~/utils/aluno.server";
 import _ from "lodash";
-
+import { ImEnter } from "react-icons/im";
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
@@ -69,16 +69,31 @@ export default function Index() {
 
           <div className="h-full mt-24 items-center flex flex-col gap-y-4">
             <Form method="post" className="rounded-2xl bg-black p-6 w-96">
-              <label htmlFor="matricula" className="text-white font-semibold ">
+              <label
+                htmlFor="matricula"
+                className="text-white font-semibold mb-9 ">
                 Número de Matricula
               </label>
-              <input
+              <div className="relative  my-4 flex w-full flex-wrap items-stretch mb-3">
+                <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300  bg-transparent rounded-xl text-base items-center justify-center w-8 pl-3 py-3">
+                  <ImEnter />
+                </span>
+                <input
+                  type="number"
+                  name="matricula"
+                  required
+                  autoFocus
+                  placeholder="Pegue seu número na recepção"
+                  className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white  rounded-xl text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pl-10"
+                />
+              </div>
+              {/* <input
                 autoFocus
                 className="w-full p-2 rounded-xl my-2"
                 type="number"
                 name="matricula"
                 required
-              />
+              /> */}
               <div className="w-full text-center">
                 <button
                   disabled={
