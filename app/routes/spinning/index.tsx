@@ -63,12 +63,12 @@ export default function Index() {
 
   return (
     <div className="h-screen w-full bg-stone-100 font-Roboto ">
-      <div className="bg-gradient-to-r from-[#04beec] to-[#EAECC6]">
-        <div className="text-gray-600  body-font bg-no-repeat min-h-screen  bg-contain   bg-bottom bg-[url('/spin.svg')]">
+      <div className="bg-gradient-to-r from-[#e58c10] to-[#fbfebd]">
+        <div className="text-gray-600  body-font bg-no-repeat min-h-screen  bg-contain   bg-bottom bg-[url('/spinning2.png')]">
           <Navbar />
 
           <div className="h-full mt-24 items-center flex flex-col gap-y-4">
-            <Form method="post" className="rounded-2xl bg-black p-6 w-96">
+            <Form method="post" className="rounded-2xl bg-slate-500 p-6 w-96">
               <label
                 htmlFor="matricula"
                 className="text-white font-semibold mb-9 ">
