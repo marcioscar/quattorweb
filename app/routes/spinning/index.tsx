@@ -16,6 +16,7 @@ export const action: ActionFunction = async ({ request }) => {
     (n) => n.name
   );
 
+  console.log(aluno.name);
   const spinning = plano.filter(
     (s) =>
       s.includes("FITNESS") || s.includes("SPINNING") || s.includes("TOTAL")
@@ -71,7 +72,7 @@ export default function Index() {
           <div className="h-full  mt-24 items-center flex flex-col gap-y-4">
             <Form
               method="post"
-              className="rounded-2xl bg-white bg-opacity-25  p-6 md:w-1/2 w-10/12">
+              className="rounded-2xl bg-white bg-opacity-25  p-6 md:w-1/2 lg:w1/4 w-10/12">
               <label htmlFor="matricula" className=" font-semibold mb-9 ">
                 Número de Matricula
               </label>

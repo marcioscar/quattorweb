@@ -54,7 +54,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Spinning() {
   const { aluno, aulas, agendamentos } = useLoaderData();
   const alunoAgendado = useActionData();
-  console.log(aulas);
+
   const id = aluno.idMember;
   const now = new Date();
   const agora = moment();
@@ -96,14 +96,14 @@ export default function Spinning() {
         </div>
 
         {hourFilter.length > 0 && aluno.idMember !== 4 && (
-          <div className="w-full container mx-auto px-8 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full container mx-auto px-8 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
             <div className="flex   mb-4">
-              <h5 className="text-md   font-medium leading-none text-slate-500 dark:text-white">
+              <h5 className="text-md   font-medium leading-none text-slate-500 ">
                 RESERVAR AULAS
               </h5>
             </div>
             <div className="flow-root">
-              <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+              <ul className="divide-y divide-gray-200 ">
                 {hourFilter.map((aula: any) => (
                   <li key={aula.id} className="py-3 sm:py-4">
                     <Form method="post">
@@ -125,37 +125,36 @@ export default function Spinning() {
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0  ">
                           <button
-                            disabled={
-                              aula.start === "07:30"
-                                ? +alunos730 > 17
-                                : +alunos19 > 17
-                            }
                             // disabled={
                             //   aula.start === "07:30"
-                            //     ? moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() > 0.5 ||
-                            //       moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() < 0 ||
-                            //       +alunos730 > 17
-                            //     : moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() > 0.5 ||
-                            //       moment
-                            //         .duration(
-                            //           moment(aula.start, "HH:mm:ss").diff(agora)
-                            //         )
-                            //         .asHours() < 0 ||
-                            //       +alunos19 > 17
+                            //     ? +alunos730 > 17
+                            //     : +alunos19 > 17
                             // }
-
+                            disabled={
+                              aula.start === "07:30"
+                                ? moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() > 0.5 ||
+                                  moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() < 0 ||
+                                  +alunos730 > 17
+                                : moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() > 0.5 ||
+                                  moment
+                                    .duration(
+                                      moment(aula.start, "HH:mm:ss").diff(agora)
+                                    )
+                                    .asHours() < 0 ||
+                                  +alunos19 > 17
+                            }
                             className="bg-green-500 rounded-full px-2 pt-2.5 pb-2  disabled:bg-slate-400 disabled:cursor-not-allowed disabled:opacity-40 text-white active:bg-orange-600 font-bold uppercase text-sm  py-1  shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="submit"
                             name="_action"
@@ -164,7 +163,7 @@ export default function Spinning() {
                           </button>
                         </div>
                         <div className="flex-1 min-w-2">
-                          <p className=" font-medium text-gray-900 truncate dark:text-white">
+                          <p className=" font-medium text-gray-900 truncate">
                             {aula.turma}
 
                             <input
@@ -190,7 +189,7 @@ export default function Spinning() {
                               }
                             />
                           </p>
-                          <p className="text-sm  text-blue-500 truncate dark:text-gray-400">
+                          <p className="text-sm  text-blue-500 truncate ">
                             {aula.start} - {aula.finish}
                             <input
                               type="text"
@@ -201,11 +200,11 @@ export default function Spinning() {
                             />
                           </p>
                         </div>
-                        <div className="items-center text-base font-semibold text-gray-900 dark:text-white w-1/2">
+                        <div className="items-center text-base font-semibold text-gray-900  w-1/2">
                           <p className="text-center text-blue-400 font-medium text-sm">
                             RESERVADO
                           </p>
-                          <div className="w-full bg-gray-200  rounded-full dark:bg-gray-700">
+                          <div className="w-full bg-gray-200  rounded-full ">
                             <div
                               className="bg-orange-300 rounded-full text-xs font-medium  text-center p-1 leading-none  "
                               style={
@@ -241,7 +240,7 @@ export default function Spinning() {
           </div>
         )}
         {agendaAluno.length > 0 && (
-          <div className="divide-y flex-row divide-gray-200 dark:divide-gray-700">
+          <div className="divide-y flex-row divide-gray-200 ">
             <div>
               <h2 className="text-center font-semibold p-2">Aulas Reservada</h2>
               {agendaAluno.map((aulas: any) => (
@@ -275,8 +274,8 @@ export default function Spinning() {
         )}
 
         {aluno.idMember === 4 && (
-          <div className="w-full container mx-auto px-8 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <div className="divide-y flex-row divide-gray-200 dark:divide-gray-700">
+          <div className="w-full container mx-auto px-8 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
+            <div className="divide-y flex-row divide-gray-200 ">
               {agendamentos.map((ag: any) => (
                 <div key={ag.id} className="py-3 sm:py-4 flex-row">
                   <div className="flex mb-2 font-semibold text-lg  space-x-4 justify-center  ">
