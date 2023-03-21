@@ -35,12 +35,12 @@ export default function Index() {
   const transition = useTransition();
 
   return (
-    <div className="h-screen w-full bg-gradient-to-b from-[#F9D423] to-[#e65c00] font-Roboto ">
+    <div className="h-screen w-full bg-gradient-to-b from-[#e6b980] to-[#eacda3] font-Roboto ">
       <Navbar />
       <div className="h-full mt-24 items-center flex flex-col gap-y-4">
         <Form
           method="post"
-          className="rounded-2xl bg-white bg-opacity-25 p-6 md:w-1/2 w-10/12">
+          className="rounded-2xl bg-white bg-opacity-30 p-6 md:w-1/2 w-10/12">
           <label htmlFor="matricula" className="text-stone-800 font-semibold ">
             Número de Matricula
           </label>

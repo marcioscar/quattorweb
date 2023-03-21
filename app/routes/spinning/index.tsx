@@ -16,7 +16,6 @@ export const action: ActionFunction = async ({ request }) => {
     (n) => n.name
   );
 
-  console.log(aluno.name);
   const spinning = plano.filter(
     (s) =>
       s.includes("FITNESS") || s.includes("SPINNING") || s.includes("TOTAL")
