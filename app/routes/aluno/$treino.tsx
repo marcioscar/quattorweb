@@ -90,8 +90,8 @@ export default function Treino() {
   var isCheckedTitle = (item: any) =>
     // @ts-ignore
     checked.includes(item)
-      ? "text-decoration-line: line-through   "
-      : "text font-medium text-green-600  ";
+      ? "text-decoration-line: line-through"
+      : "text font-medium text-green-600";
 
   useEffect(() => {
     setTreino(

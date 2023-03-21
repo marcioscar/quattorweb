@@ -68,8 +68,7 @@ export default function Cadastro() {
                       <div className="form-group ">
                         <Label
                           htmlFor="grupo"
-                          className="form-label font-light inline-block  text-gray-400"
-                        >
+                          className="form-label font-light inline-block  text-gray-400">
                           Grupo
                         </Label>
 
@@ -77,8 +76,7 @@ export default function Cadastro() {
                           // type="email"
                           {...register("grupo")}
                           className="rounded-md border-2 form-control block
-                          w-full "
-                        >
+                          w-full ">
                           <option value="PEITORAL">PEITORAL</option>
                           <option value="OMBROS">OMBROS</option>
                           <option value="MEMBROS SUPERIORES 1">
@@ -118,8 +116,7 @@ export default function Cadastro() {
                           // type="number"
                           {...register("semana")}
                           className="rounded-md border-2 form-control block
-                          w-full "
-                        >
+                          w-full ">
                           <option value="01">01 - (01/01 a 07/01)</option>
                           <option value="02">02 - (08/01 a 14/01)</option>
                           <option value="03">03 - (15/01 a 21/01)</option>
@@ -129,7 +126,29 @@ export default function Cadastro() {
                           <option value="07">07 - (12/02 a 18/02)</option>
                           <option value="08">08 - (19/02 a 25/02)</option>
                           <option value="09">09 - (26/02 a 04/03)</option>
-                          <option value="10">10 - (05/02 a 10/03)</option>
+                          <option value="10">10 - (05/02 a 11/03)</option>
+                          <option value="10">11 - (12/03 a 18/03)</option>
+                          <option value="10">10 - (19/03 a 25/03)</option>
+                          <option value="10">10 - (26/03 a 01/04)</option>
+                          <option value="10">10 - (02/04 a 08/04)</option>
+                          <option value="10">10 - (09/04 a 15/04)</option>
+                          <option value="10">10 - (16/04 a 22/04)</option>
+                          <option value="10">10 - (23/04 a 29/04)</option>
+                          <option value="10">10 - (30/04 a 06/05)</option>
+                          <option value="10">10 - (30/04 a 06/05)</option>
+                          <option value="10">10 - (07/05 a 13/05)</option>
+                          <option value="10">10 - (14/05 a 20/05)</option>
+                          <option value="10">10 - (21/05 a 27/05)</option>
+                          <option value="10">10 - (28/05 a 03/06)</option>
+                          <option value="10">10 - (04/06 a 10/06)</option>
+                          <option value="10">10 - (11/06 a 17/06)</option>
+                          <option value="10">10 - (18/06 a 24/06)</option>
+                          <option value="10">10 - (25/06 a 01/07)</option>
+                          <option value="10">10 - (02/07 a 08/07)</option>
+                          <option value="10">10 - (09/07 a 15/07)</option>
+                          <option value="10">10 - (16/07 a 22/07)</option>
+                          <option value="10">10 - (23/07 a 29/07)</option>
+                          <option value="10">10 - (30/07 a 05/08)</option>
                         </select>
                         <Errors className="text-red-500" />
                       </div>
@@ -209,8 +228,7 @@ export default function Cadastro() {
                           // type="number"
                           {...register("video")}
                           className="rounded-md border-2 form-control block
-                          w-full "
-                        >
+                          w-full ">
                           <option value="">Selecione a máquina</option>
                           <option value="abd_declinado.gif">
                             Abdominal Declinado
@@ -330,8 +348,7 @@ export default function Cadastro() {
 
                 <Button
                   type="submit"
-                  className="rounded-xl w-32 bg-green-600 px-3 py-2 text-white font-semibold hover:bg-green-800"
-                >
+                  className="rounded-xl w-32 bg-green-600 px-3 py-2 text-white font-semibold hover:bg-green-800">
                   {transition.state === "submitting"
                     ? "Cadastrando..."
                     : "Cadastrar"}
