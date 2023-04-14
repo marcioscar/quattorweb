@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Form, useTransition } from "@remix-run/react";
-import { Navbar } from "~/components/Navbar";
+
 import { createAula } from "~/utils/aulas.server";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -48,8 +48,6 @@ export default function Nova() {
 
   return (
     <>
-      <Navbar />
-
       <div className="h-full justify-center items-center flex flex-col gap-y-4">
         <h2 className="text-2xl font-extrabold text-slate-700">
           Cadastrar Aulas
@@ -70,8 +68,7 @@ export default function Nova() {
           <select
             id="classe"
             name="classe"
-            className="bg-gray-50 border p-2 my-2 border-gray-300 text-gray-900 mb-6  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
+            className="bg-gray-50 border p-2 my-2 border-gray-300 text-gray-900 mb-6  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="lutas">Lutas</option>
             <option value="natacao">Natação</option>
             <option value="ginastica">Ginástica</option>
@@ -164,8 +161,7 @@ export default function Nova() {
               type="submit"
               className="rounded-xl mt-2 bg-blue-500 text-white px-3 py-2 font-semibold transition duration-300 ease-in-out hover:bg-blue-700 hover:-translate-y-1"
               name="_action"
-              value="save"
-            >
+              value="save">
               {transition.state === "submitting"
                 ? "Cadastrando..."
                 : "Cadastrar"}

@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Index() {
   const { TodasAulas } = useLoaderData();
-  // console.log(TodasAulas);
+
   return (
     <div className="text-gray-600 body-font">
       <Navbar />
@@ -60,8 +60,7 @@ export default function Index() {
               <div className=" ">
                 <a
                   href="https://wa.me/5561993190568"
-                  className="mt-2  font-semibold inline-flex items-center "
-                >
+                  className="mt-2  font-semibold inline-flex items-center ">
                   <FaWhatsapp className="text-green-600 text-2xl mr-2 " />
                   (61) 99319-0568
                 </a>

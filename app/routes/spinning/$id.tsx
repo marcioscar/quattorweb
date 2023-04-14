@@ -1,5 +1,6 @@
 import { getAluno } from "~/utils/aluno.server";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import {
@@ -9,11 +10,37 @@ import {
   getSpinning,
 } from "~/utils/aulas.server";
 import { AiFillSchedule, AiTwotoneDelete } from "react-icons/ai";
-import { Navbar } from "~/components/Navbar";
+
 import _ from "lodash";
 import moment from "moment";
+import { commitSession, getSession } from "~/session.server";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const plano = session.get("aluno")?.plano;
+
+  if (!session.has("aluno")) {
+    return redirect("/login");
+  }
+
+  const spinning = plano.filter(
+    (s: any) =>
+      s.includes("FITNESS") || s.includes("SPINNING") || s.includes("TOTAL")
+  ).length;
+
+  if (spinning === 0) {
+    const session = await getSession(request.headers.get("Cookie"));
+    session.set("aluno", {
+      motivo: "Spinning não está incluso em seu plano",
+    });
+
+    return redirect("/login", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
   const aluno = await getAluno(Number(params.id));
   const aulas = await getSpinning();
   const agendamentos = await getAgendamentos();
@@ -71,8 +98,6 @@ export default function Spinning() {
   //   return { start: value.start, turma: value.turma };
   // });
 
-  // console.log(_.flatMap(result));
-
   const aula730 = _.filter(agendamentos, ["Hora", "07:30"]);
   const alunos730 = _.flatten(aula730.map((dt: any) => dt.alunos)).length;
 
@@ -81,7 +106,6 @@ export default function Spinning() {
 
   return (
     <>
-      <Navbar />
       <div className="px-2 mx-auto ">
         <div className="text-center">
           <img

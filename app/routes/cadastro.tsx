@@ -1,4 +1,3 @@
-import { Navbar } from "~/components/Navbar";
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
 import { Form, performMutation } from "remix-forms";
@@ -21,17 +20,9 @@ const schema = z.object({
 });
 const mutation = makeDomainFunction(schema)(async (values) => {
   const treinos = await updateTreino(values);
-
   return treinos;
 });
 
-// export const action: ActionFunction = async ({ request }) =>
-//   formAction({
-//     request,
-//     schema,
-//     mutation,
-//     successPath: `/cadastro/`,
-//   });
 export const action: ActionFunction = async ({ request }) => {
   const result = await performMutation({ request, schema, mutation });
   if (!result.success) return json(result, 400);
@@ -44,16 +35,15 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Cadastro() {
   let transition = useTransition();
 
-  let adicionando = transition.state === "submitting";
-  useEffect(() => {
-    if (!adicionando) {
-      console.log("limpando");
-    }
-  }, [adicionando]);
+  // let adicionando = transition.state === "submitting";
+  // useEffect(() => {
+  //   if (!adicionando) {
+  //     console.log("limpando");
+  //   }
+  // }, [adicionando]);
 
   return (
     <div className="w-full bg-stone-100 font-Roboto ">
-      <Navbar />
       <div className="h-full mt-6 items-center flex flex-col gap-y-4">
         <h2 className="text-2xl font-extrabold text-slate-700">
           Cadastro de Exercício
@@ -100,6 +90,21 @@ export default function Cadastro() {
                           </option>
                           <option value="MEMBROS SUPERIORES GERAL">
                             MEMBROS SUPERIORES GERAL
+                          </option>
+                          <option value="2X SEMANA - TREINO A">
+                            2X SEMANA - TREINO A
+                          </option>
+                          <option value="2X SEMANA - TREINO B">
+                            2X SEMANA - TREINO B
+                          </option>
+                          <option value="3X SEMANA - TREINO A">
+                            3X SEMANA - TREINO A
+                          </option>
+                          <option value="3X SEMANA - TREINO B">
+                            3X SEMANA - TREINO B
+                          </option>
+                          <option value="3X SEMANA - TREINO C">
+                            3X SEMANA - TREINO C
                           </option>
                         </select>
                         <Errors className="text-red-500" />

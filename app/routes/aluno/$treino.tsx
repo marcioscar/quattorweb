@@ -27,7 +27,6 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 import { FiVideo } from "react-icons/fi";
-import { Navbar } from "~/components/Navbar";
 
 type grupo = {
   grupo: string;
@@ -35,10 +34,11 @@ type grupo = {
   exercicios: [];
   semana: number;
 };
-//Loader dos dados dos alunos e  treinos da semana atual
+
 export const loader: LoaderFunction = async ({ request, params }) => {
   const aluno = await getAluno(Number(params.treino));
   const treinosGrupo = await getTreinos(getWeek(new Date()));
+
   const historicoTreinos = await getHistorico(Number(params.treino));
   return json({ aluno, treinosGrupo, historicoTreinos });
 };
@@ -53,10 +53,13 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Treino() {
   const { aluno, treinosGrupo, historicoTreinos } = useLoaderData();
   const [grupo, setGrupo] = useState();
+  const [tipoTreinoGrupo, SetTipoTreinoGRupo] = useState(
+    treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
+  );
   const [treino, setTreino] = useState();
   const [checked, setChecked] = useState([]);
   const transition = useTransition();
-  const ultimosTreinos = _.takeRight(historicoTreinos?.treinos, 3);
+  const ultimosTreinos = _.takeRight(historicoTreinos?.treinos, 6);
 
   const handleGrupo = (event: any) => {
     setGrupo(event.target.value);
@@ -66,6 +69,49 @@ export default function Treino() {
       // @ts-ignore
       inputs[i].checked = false;
     }
+  };
+
+  const handleTipoTreino = (event: any) => {
+    let tp = event.target.value;
+
+    switch (tp) {
+      case "2X":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
+        );
+        break;
+      case "3X":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => el.grupo.includes("3X"))
+        );
+        break;
+      case "4X":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => el.grupo.includes("4X"))
+        );
+        break;
+      case "5X":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => el.grupo.includes("5X"))
+        );
+        break;
+      case "6X":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => el.grupo.includes("6X"))
+        );
+        break;
+
+      case "grupo":
+        SetTipoTreinoGRupo(
+          treinosGrupo.filter((el: any) => !el.grupo.includes("TREINO"))
+        );
+        break;
+    }
+    // event.target.value === "2X"
+    //   ? SetTipoTreinoGRupo(
+    //       treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
+    //     )
+    //   : SetTipoTreinoGRupo(treinosGrupo);
   };
 
   const handleCheck = (event: any) => {
@@ -96,15 +142,15 @@ export default function Treino() {
   useEffect(() => {
     setTreino(
       // @ts-ignore
-      _.filter(treinosGrupo, ["grupo", grupo])
+      _.filter(tipoTreinoGrupo, ["grupo", grupo])
     );
-  }, [grupo, treinosGrupo]);
+  }, [grupo, tipoTreinoGrupo]);
   const textInput = useRef(null);
 
   return (
     <>
       <Outlet />
-      <Navbar />
+
       <div className=" px-2 mx-auto ">
         <div className="text-center">
           <img
@@ -141,6 +187,136 @@ export default function Treino() {
           )}
         </div>
 
+        <div className="w-full max-w-lg mb-2 px-6 py-3 mx-auto border bg-white rounded-lg  ">
+          <h1 className="font-semibold mb-3">Treinos por Semana</h1>
+          <div className="flex justify-between text-sm text-center item-center">
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="2"
+                value="2X"
+                onChange={handleTipoTreino}
+                className="hidden peer"
+              />
+              <label
+                htmlFor="2"
+                className="inline-block cursor-pointer w-12 h-10 p-3  font-medium  text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                2
+              </label>
+            </div>
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="3"
+                value="3X"
+                onChange={handleTipoTreino}
+                className="hidden peer"
+              />
+              <label
+                htmlFor="3"
+                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                3
+              </label>
+            </div>
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="4"
+                value="4X"
+                onChange={handleTipoTreino}
+                className="hidden peer"
+              />
+              <label
+                htmlFor="4"
+                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                4
+              </label>
+            </div>
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="5"
+                value="5X"
+                onChange={handleTipoTreino}
+                className="hidden peer"
+              />
+              <label
+                htmlFor="5"
+                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                5
+              </label>
+            </div>
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="6"
+                value="6X"
+                onChange={handleTipoTreino}
+                className="hidden peer"
+              />
+              <label
+                htmlFor="6"
+                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                6
+              </label>
+            </div>
+            <div>
+              <input
+                name="semana"
+                type="radio"
+                id="grupo"
+                value="grupo"
+                className="hidden peer"
+                onChange={handleTipoTreino}
+              />
+              <label
+                htmlFor="grupo"
+                className="inline-block cursor-pointer w-16 h-10 p-3 font-medium text-white rounded-full bg-gray-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-600 peer-checked:text-white">
+                Grupo
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="flex justify-center">
+          <div className="mb-2   mr-4 inline-block min-h-2 pl-6">
+            <input
+              onChange={handleTipoTreino}
+              className="relative float-left mt-0.5 mr-1 -ml-[1.5rem] h-5 w-5 rounded-full border-2 border-solid border-neutral-300 dark:border-neutral-600 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary dark:checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary dark:checked:after:border-primary dark:checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary dark:checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
+              type="radio"
+              name="tipo"
+              value="grupo"
+              readOnly
+              defaultChecked={tipoTreino === "grupo"}
+            />
+            <label
+              className="mt-px inline-block  pl-[0.15rem] hover:cursor-pointer"
+              htmlFor="tipoTreino">
+              2X SEMANA
+            </label>
+          </div>
+          <div className="mb-2 mr-4 inline-block min-h-2 pl-6">
+            <input
+              onChange={handleTipoTreino}
+              className="relative float-left mt-0.5 mr-1 -ml-[1.5rem] h-5 w-5  rounded-full border-2 border-solid border-neutral-300 dark:border-neutral-600 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary dark:checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary dark:checked:after:border-primary dark:checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary dark:checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
+              type="radio"
+              name="tipo"
+              value="2X"
+              readOnly
+              defaultChecked={tipoTreino === "2X"}
+            />
+            <label
+              className="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+              htmlFor="tipoTreino">
+              Grupo Muscular
+            </label>
+          </div>
+        </div> */}
         <div className=" max-w-lg flex mx-auto ">
           <select
             className="form-select block  justify-center w-full px-3 py-1.5 font-light text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
@@ -150,7 +326,7 @@ export default function Treino() {
             // @ts-ignore
             onChange={handleGrupo}>
             <option>Selecione o Treino</option>
-            {treinosGrupo.map((grupo: grupo) => (
+            {tipoTreinoGrupo?.map((grupo: grupo) => (
               <option key={grupo.grupo} value={grupo.grupo}>
                 {grupo.grupo}
               </option>
@@ -168,18 +344,20 @@ export default function Treino() {
               defaultValue={aluno.idMember}
             />
 
-            <div className=" block justify-center mx-auto max-w-xl ">
-              <div className="flex flex-row  justify-evenly  font-bold text-orange-500 items-center m-2 text-xl">
-                {grupo}
-                <button className="bg-blue-500   inline-flex gap-3 items-center px-3 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md  hover:shadow-lg hover:bg-green-800">
-                  <FaCheck />
+            {grupo !== "Selecione o Treino" && (
+              <div className=" block justify-center mx-auto max-w-xl ">
+                <div className="flex flex-row  justify-evenly  font-bold text-orange-500 items-center m-2 text-xl">
+                  {grupo}
+                  <button className="bg-blue-500   inline-flex gap-3 items-center px-3 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md  hover:shadow-lg hover:bg-green-800">
+                    <FaCheck />
 
-                  {transition.state === "submitting"
-                    ? "Atualizando..."
-                    : "Feito"}
-                </button>
+                    {transition.state === "submitting"
+                      ? "Atualizando..."
+                      : "Feito"}
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             {
               // @ts-ignore

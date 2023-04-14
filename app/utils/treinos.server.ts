@@ -68,7 +68,7 @@ export const updateTreino = async (treino: any) => {
   const existe = await prisma.treinos.findFirst({
     where: {
       grupo: treino.grupo,
-      semana: treino.semana,
+      semana: +treino.semana,
     },
     select: {
       id: true,
@@ -96,7 +96,7 @@ export const updateTreino = async (treino: any) => {
     },
     create: {
       grupo: treino.grupo,
-      semana: treino.semana,
+      semana: +treino.semana,
       exercicios: {
         nome: treino.nome,
         Repeticoes: treino.repeticoes,

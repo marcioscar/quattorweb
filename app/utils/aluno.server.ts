@@ -1,8 +1,12 @@
 import { prisma } from "./prisma.server";
 import fetch from "@remix-run/web-fetch";
+
 const EVO_AUTH = process.env.NEXT_PUBLIC_EVO_AUTH;
 
 export const getAluno = async (matricula: number) => {
+  if (!matricula) {
+    return null;
+  }
   try {
     const aluno = await fetch(
       `https://evo-integracao.w12app.com.br/api/v1/members/${matricula}`,
@@ -14,6 +18,9 @@ export const getAluno = async (matricula: number) => {
         },
       }
     );
+    // if (aluno.status === 400) {
+    //   throw "Aluno não Encontrado";
+    // }
     return aluno.json();
   } catch (error) {
     throw error;
@@ -24,6 +31,20 @@ export const getTreinos = async (semana: number) => {
   return prisma.treinos.findMany({
     where: {
       semana: semana,
+    },
+  });
+};
+export const getTreinosSemanal = async (semana: number) => {
+  return prisma.treinos.findMany({
+    where: {
+      AND: [
+        { semana: semana },
+        {
+          grupo: {
+            contains: "SEMANA",
+          },
+        },
+      ],
     },
   });
 };

@@ -8,7 +8,7 @@ import {
 } from "~/utils/treinos.server";
 import { FaSave, FaTrash } from "react-icons/fa";
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const exercicio = await getExercicios(params.exe);
+  const exercicio = await getExercicios(params.grupo);
 
   return exercicio;
 };
@@ -31,26 +31,20 @@ export const action: ActionFunction = async ({ request, params }) => {
   return redirect(`/treinos/${id}`);
 };
 
-export default function Treino() {
+export default function Grupocadastrado() {
   const { exercicios } = useLoaderData();
 
   return (
     <ul>
       <div className="grid grid-cols-12 py-2 gap-2">
+        <div className="col-span-4 font-light text-sm text-sky-500">Número</div>
         <div className="col-span-4 font-light text-sm text-sky-500">Nome</div>
-        <div className="col-span-2 font-light text-sm text-sky-500">Carga</div>
-        <div className="col-span-2 font-light text-sm text-sky-500">
-          Repetições
-        </div>
-        <div className="col-span-3 font-light text-sm text-sky-500">
-          Observação
-        </div>
-        <div className="col-span-3 font-light text-sm text-sky-500">Video</div>
       </div>
       {exercicios.map((exec: any, index: any) => (
         <li key={exec.execid} className="py-1  ">
           <Form method="post">
             <div className="grid grid-cols-12  gap-2">
+              <input type="text" id="index" defaultValue={index + 1} />
               <input
                 hidden
                 type="text"

@@ -1,14 +1,12 @@
-import { Navbar } from "~/components/Navbar";
-import { FaMapMarkedAlt, FaWhatsapp, FaClock } from "react-icons/fa";
-import Aulas from "~/components/Aulas";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { getAulas } from "~/utils/aulas.server";
 import { useLoaderData } from "@remix-run/react";
+import { getAulas } from "~/utils/aulas.server";
+import { FaMapMarkedAlt, FaWhatsapp, FaClock } from "react-icons/fa";
+import Aulas from "~/components/Aulas";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const TodasAulas = await getAulas();
-
   return json({ TodasAulas });
 };
 
@@ -16,63 +14,48 @@ export default function Index() {
   const { TodasAulas } = useLoaderData();
 
   return (
-    <>
-      <Navbar />
-      <div className="h-80 xl:h-5/6 w-full bg-gradient-to-tl from-black to-orange-500 relative">
-        <img
-          alt="content"
-          className="w-full h-full object-cover absolute mix-blend-overlay "
-          src="/fundo_novo.jpg"
-        />
-        <div className="pt-10 xl:pt-20 xl:pl-10 ">
-          <h2 className="text-4xl xl:text-6xl font-extrabold shadow-xl text-white md:text-3xl">
-            Quattor Academia
-          </h2>
-          <div className="text-md xl:text-2xl font-bold text-white ">
-            Jornada de Resultados Reais
-          </div>
-        </div>
-
-        <div className=" pl-32 pt-8 flex justify-end items-end">
-          <img
-            alt="logo"
-            src="/15anos.svg"
-            className="mt-10 w-60 xl:w-96 xl:mt-0  "
-          />
-        </div>
-      </div>
-      <div className="bg-gradient-to-r from-[#2BC0E4] to-[#EAECC6]">
-        {/* <div className="bg-gradient-to-r from-[#8e9eab] to-[#eef2f3]"> */}
-        <div className="text-gray-600 body-font bg-no-repeat min-h-screen bg-contain bg-center bg-[url('/bola50.svg')]">
-          <div className="container mx-auto content-center  py-6 px-2 md:px-0 md:grid md:gap-x-6  md:gap-y-4 md:grid-cols-3">
-            <div className="bg-white/75  py-6 mb-2 flex flex-col items-center rounded-lg  drop-shadow-2xl  min-h-96 max-h-96">
-              <div className="flex  items-center mb-3">
-                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-orange-500 text-white flex-shrink-0">
+    <div className="bg-stone-100 md:pt-4 h-screen ">
+      <div className="container bg-white py-4 px-6 h-screen mx-auto rounded-lg ">
+        <section className="mb-12 text-gray-800 lg:text-left">
+          <div className="grid  lg:grid-cols-3 gap-6 xl:gap-12 items-center">
+            <div className="mb-2 lg:mb-0 ">
+              {/* <h2 className="text-5xl md:text-6xl xl:text-7xl font-bold ">
+                Quattor <br />
+                <span className="text-blue-600">Academia</span>
+              </h2> */}
+              <div className="  ">
+                <img
+                  src="logo_alto.svg"
+                  className="w-48 mx-auto md:mx-0 md:w-[240px] "
+                  alt="logo"
+                />
+              </div>
+            </div>
+            <div className="mb-6 lg:mb-0">
+              <div className="flex  items-baseline mb-3">
+                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
                   <FaMapMarkedAlt />
                 </div>
                 <h2 className="text-gray-900 text-lg title-font font-medium">
                   Onde Estamos
                 </h2>
               </div>
-
-              <div className="text-center ">
-                <p className="font-semibold">Rua 5 Sul - Águas Claras - DF</p>
-                <div className=" ">
+              <div className="px-10 text-center  md:text-start  ">
+                <p className="font-semibold text-xl md:text-base">
+                  Rua 5 Sul - Águas Claras - DF
+                </p>
+                <div className="">
                   <a
                     href="https://wa.me/5561993190568"
-                    className="mt-2  font-semibold inline-flex items-center ">
-                    <FaWhatsapp className="text-green-600 text-2xl mr-2 " />
+                    className="mt-2 text-xl font-semibold inline-flex items-center ">
+                    <FaWhatsapp className="text-green-600 text-3xl  " />
                     (61) 99319-0568
-                  </a>
-                  <a href="https://wa.me/5561993190568">
-                    <button className="bg-green-400 tracking-tighter ml-5 px-2 py-1  text-white inline-flex items-center space-x-2 rounded">
-                      <FaWhatsapp />
-                      <span>Aula experimental</span>
-                    </button>
                   </a>
                 </div>
               </div>
-              <div className="flex mt-10  items-center mb-3">
+            </div>
+            <div>
+              <div className="flex items-baseline mb-3">
                 <div className="w-8 h-8  mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
                   <FaClock />
                 </div>
@@ -80,53 +63,149 @@ export default function Index() {
                   Horário de Funcionamento
                 </h2>
               </div>
-              <div className="flex-grow text-center">
+              <div className="flex-grow px-10  font-medium text-center md:text-start ">
                 <p className="leading-relaxed ">
-                  <span className=" text-gray-900 ">Segunda a Sexta:</span>{" "}
-                  6:00h às 23:00h
+                  <span className=" text-gray-900 ">Segunda a Sexta:</span> 6h
+                  às 23h
                 </p>
-                <p className="leading-relaxed  ">
+                <p className="leading-relaxed ">
                   <span className=" text-gray-900 ">Sábados e Feriados:</span>{" "}
-                  8:00h às 12:00h
+                  8h às 12h
                 </p>
                 <p className="leading-relaxed  ">
-                  <span className=" text-gray-900 ">Domingos:</span> 8:00h às
-                  12:00h
+                  <span className=" text-gray-900 ">Domingos:</span> 8h às 12h
                 </p>
               </div>
             </div>
-            <div className="bg-white/75 overflow-auto rounded-lg mb-2 max-h-96 min-h-96 drop-shadow-2xl col-span-2">
-              <Aulas aulas={TodasAulas} />
-            </div>
-            {/* <div className="mb-2  ">
-              <img src="/feriado.jpg" alt="feriado" className="rounded-lg" />
-            </div> */}
-            <div className="mb-2">
-              <video controls poster="/como.jpg">
-                <source src="/treino.mp4" />
-              </video>
-            </div>
-            {/* <div className="mb-2">
+          </div>
+        </section>
+        <div className="grid grid-cols-3 md:grid-cols-5  gap-x-3 lg:gap-x-4">
+          <div className="bg-white block rounded-lg shadow-lg -rotate-2">
+            <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
-                src="/recesso_ballet infantil.jpg"
-                alt="recesso ballet infantil"
+                src="/bale_foto.jpg"
+                className=" object-cover h-36 w-80 md:h-52 md:w-full  rounded-lg"
+                alt="fotos"
               />
+
+              <svg
+                className="absolute"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                style={{ left: 0, bottom: -1 }}>
+                <path
+                  fill="#fff"
+                  d="M0,96L48,128C96,160,192,224,288,240C384,256,480,224,576,213.3C672,203,768,213,864,202.7C960,192,1056,160,1152,128C1248,96,1344,64,1392,48L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
             </div>
-            <div className="mb-2">
-              <img src="/recesso_ballet.jpg" alt="recesso ballet" />
+            <div className="p-2">
+              <h5 className="text-lg font-bold text-orange-400 ">Ballet</h5>
+              <p className="text-gray-500 mb-4">Infantil e Adulto </p>
             </div>
-            <div className="mb-2">
-              <img src="/recesso_fitdance.jpg" alt="recesso fit" />
+          </div>
+          <div className="bg-white hidden md:block rounded-lg shadow-lg rotate-2">
+            <div className="relative overflow-hidden bg-no-repeat bg-cover">
+              <img
+                src="/judo_foto_pb.jpg"
+                className=" object-cover h-36 w-80 md:h-52 md:w-full rounded-lg"
+                alt="fotos"
+              />
+
+              <svg
+                className="absolute"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                style={{ left: 0, bottom: -1 }}>
+                <path
+                  fill="#fff"
+                  d="M0,288L48,256C96,224,192,160,288,160C384,160,480,224,576,213.3C672,203,768,117,864,85.3C960,53,1056,75,1152,69.3C1248,64,1344,32,1392,16L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
             </div>
-            <div className="mb-2">
-              <img src="/recesso_judo.jpg" alt="recesso judo" />
+            <div className="p-2">
+              <h5 className="text-lg  text-blue-500 font-bold ">Judô</h5>
+              <p className="text-gray-500 mb-4">Infantil</p>
             </div>
-            <div className="mb-2">
-              <img src="/recesso_natacao.jpg" alt="recesso natacao" />
-            </div> */}
+          </div>
+
+          <div className="bg-white hidden md:block  rounded-lg shadow-lg -rotate-2.5 ">
+            <div className="relative overflow-hidden bg-no-repeat bg-cover">
+              <img
+                src="/muai_foto.jpg"
+                className=" object-cover h-36 w-80 md:h-52 md:w-full rounded-lg"
+                alt="fotos"
+              />
+              <a href="#!">
+                <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"></div>
+              </a>
+              <svg
+                className="absolute"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                style={{ left: 0, bottom: -1 }}>
+                <path
+                  fill="#fff"
+                  d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
+            </div>
+            <div className="p-2">
+              <h5 className="text-lg  text-red-500 font-bold ">Muay thai</h5>
+              <p className="text-gray-500 mb-4">Jovens e Adultos</p>
+            </div>
+          </div>
+
+          <div className="bg-white  block  rounded-lg shadow-lg rotate-2">
+            <div className="relative overflow-hidden bg-no-repeat bg-cover">
+              <img
+                src="/natacao_foto_pb.jpg"
+                className=" object-cover h-36 w-80 md:h-52 md:w-full  rounded-lg"
+                alt="fotos"
+              />
+
+              <svg
+                className="absolute"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                style={{ left: 0, bottom: -1 }}>
+                <path
+                  fill="#fff"
+                  d="M0,288L48,256C96,224,192,160,288,160C384,160,480,224,576,213.3C672,203,768,117,864,85.3C960,53,1056,75,1152,69.3C1248,64,1344,32,1392,16L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
+            </div>
+            <div className="p-2">
+              <h5 className="text-lg  text-green-500 font-bold ">Natação</h5>
+              <p className="text-gray-500 mb-4">Infantil</p>
+            </div>
+          </div>
+
+          <div className="bg-white block  rounded-lg shadow-lg -rotate-2.5">
+            <div className="relative overflow-hidden bg-no-repeat bg-cover">
+              <img
+                src="/musculacao_foto.jpg"
+                className=" w-full rounded-t-lg object-cover h-36  md:h-52 md:w-full  rounded-lg"
+                alt="fotos"
+              />
+
+              <svg
+                className="absolute"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320"
+                style={{ left: 0, bottom: -1 }}>
+                <path
+                  fill="#fff"
+                  d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+              </svg>
+            </div>
+            <div className="p-2">
+              <h5 className="text-lg  text-blue-500 font-bold ">Musculação</h5>
+              <p className="text-gray-500 mb-4">Método Exclusivo</p>
+            </div>
           </div>
         </div>
+
+        <div className="overflow-auto rounded-lg mb-2 max-h-[500px] ">
+          <Aulas aulas={TodasAulas} />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
