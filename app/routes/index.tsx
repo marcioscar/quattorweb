@@ -41,7 +41,7 @@ export default function Index() {
                 </h2>
               </div>
               <div className="px-10 text-center  md:text-start  ">
-                <p className="font-semibold text-xl md:text-base">
+                <p className="font-semibold text-lg  md:text-base">
                   Rua 5 Sul - Águas Claras - DF
                 </p>
                 <div className="">
