@@ -55,6 +55,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const aluno = await getAluno(session.get("aluno").id);
   const treinosGrupo = await getTreinos(getWeek(new Date()));
   const historicoTreinos = await getHistorico(Number(session.get("aluno").id));
+  console.log(session.get("aluno").id);
   return json({ aluno, treinosGrupo, historicoTreinos });
 };
 export const action: ActionFunction = async ({ request }) => {
