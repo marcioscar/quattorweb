@@ -67,6 +67,7 @@ export default function Index(aluno: any) {
               <li className="font-semibold text-gray-600 hover:text-blue-600">
                 <NavLink
                   to="/aluno"
+                  prefetch="render"
                   onClick={() => setNavbar(!navbar)}
                   className={({ isActive }) =>
                     isActive ? activeClassName : NoaActiveClassName
