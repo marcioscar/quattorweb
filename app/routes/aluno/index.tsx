@@ -13,7 +13,6 @@ import {
   getAluno,
   getHistorico,
   getTreinos,
-  getTreinosSemanal,
   updateHistorico,
 } from "../../utils/aluno.server";
 import { getWeek } from "date-fns";

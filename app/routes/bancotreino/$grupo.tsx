@@ -4,8 +4,10 @@ import { Form, Outlet, useLoaderData } from "@remix-run/react";
 import { getExercicios, updateTreino } from "~/utils/treinos.server";
 import { FaSave } from "react-icons/fa";
 import { useState } from "react";
+
 export const loader: LoaderFunction = async ({ request, params }) => {
   const exercicio = await getExercicios(params.grupo);
+
   return exercicio;
 };
 export const action: ActionFunction = async ({ request, params }) => {
@@ -107,7 +109,7 @@ export default function Grupocadastrado() {
           <div className="col-span-8 font-light text-sm text-sky-500">Nome</div>
         </div>
         {exercicios.map((exec: any, index: any) => (
-          <li key={index} className="py-1  ">
+          <li key={exec.execid} className="py-1  ">
             <Form method="post">
               <input
                 type="text"
