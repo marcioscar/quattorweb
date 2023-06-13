@@ -39,8 +39,9 @@ type grupo = {
 //Loader dos dados dos alunos e  treinos da semana atual
 export const loader: LoaderFunction = async ({ request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
-
-  if (!session.has("aluno")) {
+  // console.log(session.get("aluno").id);
+  const alId = session.get("aluno")?.id;
+  if (!alId) {
     session.set("aluno", {
       red: "/aluno",
     });
@@ -53,6 +54,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const aluno = await getAluno(session.get("aluno").id);
   const treinosGrupo = await getTreinos(getWeek(new Date()));
+  // const historicoTreinos = await getHistorico(4);
   const historicoTreinos = await getHistorico(Number(session.get("aluno").id));
   console.log(session.get("aluno").id);
   return json({ aluno, treinosGrupo, historicoTreinos });
@@ -166,13 +168,13 @@ export default function Treino() {
       <div className=" px-2 mx-auto ">
         <div className="text-center">
           <img
-            src={aluno.photo ? aluno.photo : "/user.png"}
+            src={aluno?.photo ? aluno?.photo : "/user.png"}
             className="rounded-full shadow-lg w-24 h-24 m-4 mx-auto"
             alt="Avatar"
           />
           <h5 className="text-xl  leading-tight mb-2">
-            {aluno.firstName} {aluno.lastName} -{" "}
-            <span className="font-mono text-gray-400"> {aluno.idMember}</span>
+            {aluno?.firstName} {aluno?.lastName} -{" "}
+            <span className="font-mono text-gray-400"> {aluno?.idMember}</span>
           </h5>
           {ultimosTreinos && (
             <>

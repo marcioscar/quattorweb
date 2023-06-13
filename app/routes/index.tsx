@@ -79,19 +79,72 @@ export default function Index() {
             </div>
           </div>
         </section>
-        <div className="grid grid-cols-3 md:grid-cols-5  gap-x-3 lg:gap-x-4">
-          <div className="bg-white block rounded-lg shadow-lg -rotate-2">
+        <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
+          <div className="mx-2 mt-5">
+            <img
+              className="rounded-lg bg-cover"
+              src="/foto_brinquedoteca.jpg"
+              alt=""
+            />
+            <div className="flex flex-row justify-between items-start mt-4">
+              <div>
+                <p className="text-lg font-bold text-red-400 ">Briquedoteca</p>
+                <p className="text-gray-500 mb-4">Com Monitor </p>
+                {/* <p className="text-sm text-gray-800">Infantil</p> */}
+              </div>
+            </div>
+          </div>
+          <div className="mx-2 mt-5 hidden md:block">
+            <img className="rounded-lg bg-cover " src="/foto_judo.jpg" alt="" />
+            <div className="flex flex-row justify-between items-start mt-4">
+              <div>
+                <p className="text-lg font-bold text-blue-400 ">Judo</p>
+                <p className="text-gray-500 mb-4">Infantil </p>
+                {/* <p className="text-sm text-gray-800">Infantil</p> */}
+              </div>
+            </div>
+          </div>
+          <div className="mx-2 mt-5">
+            <img
+              className="rounded-lg bg-cover"
+              src="/foto_natacao.jpg"
+              alt=""
+            />
+            <div className="flex flex-row justify-between items-start mt-4">
+              <div>
+                <p className="text-lg font-bold text-blue-400 ">Natação</p>
+                <p className="text-gray-500 mb-4">Infantil</p>
+                {/* <p className="text-sm text-gray-800">Infantil</p> */}
+              </div>
+            </div>
+          </div>
+          <div className="mx-2 mt-5">
+            <img
+              className="rounded-lg bg-cover"
+              src="/musculacao_foto.jpg"
+              alt=""
+            />
+            <div className="flex flex-row justify-between items-start mt-4">
+              <div>
+                <p className="text-lg font-bold text-blue-400 ">Musculação</p>
+                <p className="text-gray-500 mb-4">Método Exclusivo</p>
+                {/* <p className="text-sm text-gray-800">Infantil</p> */}
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="bg-white block rounded-lg shadow-lg -rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/bale_foto.jpg"
-                className=" object-cover h-36 w-80 md:h-52 md:w-full  rounded-lg"
+                className=" object-cover h-36 w-full md:h-52 md:w-full  rounded-lg"
                 alt="fotos"
               />
 
               <svg
                 className="absolute"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
+                viewBox="0 0 1400 150"
                 style={{ left: 0, bottom: -1 }}>
                 <path
                   fill="#fff"
@@ -102,8 +155,8 @@ export default function Index() {
               <h5 className="text-lg font-bold text-orange-400 ">Ballet</h5>
               <p className="text-gray-500 mb-4">Infantil e Adulto </p>
             </div>
-          </div>
-          <div className="bg-white hidden md:block rounded-lg shadow-lg rotate-2">
+          </div> */}
+          {/* <div className="bg-white hidden md:block rounded-lg shadow-lg rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/judo_foto_pb.jpg"
@@ -114,7 +167,7 @@ export default function Index() {
               <svg
                 className="absolute"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
+                viewBox="0 0 1400 150"
                 style={{ left: 0, bottom: -1 }}>
                 <path
                   fill="#fff"
@@ -125,9 +178,9 @@ export default function Index() {
               <h5 className="text-lg  text-blue-500 font-bold ">Judô</h5>
               <p className="text-gray-500 mb-4">Infantil</p>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-white hidden md:block  rounded-lg shadow-lg -rotate-2.5 ">
+          {/* <div className="bg-white hidden md:block  rounded-lg shadow-lg -rotate-2.5 ">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/muai_foto.jpg"
@@ -140,7 +193,7 @@ export default function Index() {
               <svg
                 className="absolute"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
+                viewBox="0 0 1400 150"
                 style={{ left: 0, bottom: -1 }}>
                 <path
                   fill="#fff"
@@ -151,20 +204,20 @@ export default function Index() {
               <h5 className="text-lg  text-red-500 font-bold ">Muay thai</h5>
               <p className="text-gray-500 mb-4">Jovens e Adultos</p>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-white  block  rounded-lg shadow-lg rotate-2">
+          {/* <div className="bg-white  block  rounded-lg shadow-lg rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/natacao_foto_pb.jpg"
-                className=" object-cover h-36 w-80 md:h-52 md:w-full  rounded-lg"
+                className=" w-full h-36  md:h-52 md:w-full  rounded-lg"
                 alt="fotos"
               />
 
               <svg
                 className="absolute"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
+                viewBox="0 0 1400 150"
                 style={{ left: 0, bottom: -1 }}>
                 <path
                   fill="#fff"
@@ -175,9 +228,9 @@ export default function Index() {
               <h5 className="text-lg  text-green-500 font-bold ">Natação</h5>
               <p className="text-gray-500 mb-4">Infantil</p>
             </div>
-          </div>
+          </div> */}
 
-          <div className="bg-white block  rounded-lg shadow-lg -rotate-2.5">
+          {/* <div className="bg-white block  rounded-lg shadow-lg -rotate-2.5">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/musculacao_foto.jpg"
@@ -188,7 +241,7 @@ export default function Index() {
               <svg
                 className="absolute"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
+                viewBox="0 0 1400 150"
                 style={{ left: 0, bottom: -1 }}>
                 <path
                   fill="#fff"
@@ -199,7 +252,7 @@ export default function Index() {
               <h5 className="text-lg  text-blue-500 font-bold ">Musculação</h5>
               <p className="text-gray-500 mb-4">Método Exclusivo</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="overflow-auto rounded-lg mb-2 max-h-[500px] ">

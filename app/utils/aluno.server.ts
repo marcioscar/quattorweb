@@ -73,6 +73,10 @@ export const updateHistorico = async (historico: any) => {
 };
 
 export const getHistorico = async (historico: any) => {
+  // if (!historico) {
+  //   return null;
+  // }
+
   return prisma.historico.findUnique({
     where: {
       aluno: parseInt(historico),

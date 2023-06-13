@@ -1,11 +1,10 @@
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
 import { Form, performMutation } from "remix-forms";
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionArgs, ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { updateTreino } from "~/utils/treinos.server";
 import { Outlet, useTransition } from "@remix-run/react";
-import { useEffect } from "react";
 
 const schema = z.object({
   grupo: z
@@ -122,38 +121,12 @@ export default function Cadastro() {
                           {...register("semana")}
                           className="rounded-md border-2 form-control block
                           w-full ">
-                          <option value="01">01 - (01/01 a 07/01)</option>
-                          <option value="02">02 - (08/01 a 14/01)</option>
-                          <option value="03">03 - (15/01 a 21/01)</option>
-                          <option value="04">04 - (22/01 a 28/01)</option>
-                          <option value="05">05 - (29/01 a 04/02)</option>
-                          <option value="06">06 - (05/02 a 11/02)</option>
-                          <option value="07">07 - (12/02 a 18/02)</option>
-                          <option value="08">08 - (19/02 a 25/02)</option>
-                          <option value="09">09 - (26/02 a 04/03)</option>
-                          <option value="10">10 - (05/02 a 11/03)</option>
-                          <option value="11">11 - (12/03 a 18/03)</option>
-                          <option value="12">12 - (19/03 a 25/03)</option>
-                          <option value="13">13 - (26/03 a 01/04)</option>
-                          <option value="14">14 - (02/04 a 08/04)</option>
-                          <option value="15">15 - (09/04 a 15/04)</option>
-                          <option value="16">16 - (16/04 a 22/04)</option>
-                          <option value="17">17 - (23/04 a 29/04)</option>
-                          <option value="18">18 - (30/04 a 06/05)</option>
-                          <option value="19">19 - (30/04 a 06/05)</option>
-                          <option value="20">20 - (07/05 a 13/05)</option>
-                          <option value="21">21 - (14/05 a 20/05)</option>
-                          <option value="22">22 - (21/05 a 27/05)</option>
-                          <option value="23">23 - (28/05 a 03/06)</option>
-                          <option value="24">24 - (04/06 a 10/06)</option>
-                          <option value="25">25 - (11/06 a 17/06)</option>
-                          <option value="26">26 - (18/06 a 24/06)</option>
-                          <option value="27">27 - (25/06 a 01/07)</option>
-                          <option value="28">28 - (02/07 a 08/07)</option>
-                          <option value="29">29 - (09/07 a 15/07)</option>
-                          <option value="30">30 - (16/07 a 22/07)</option>
-                          <option value="31">31 - (23/07 a 29/07)</option>
-                          <option value="32">32 - (30/07 a 05/08)</option>
+                          <option value="101">treino 1 </option>
+                          <option value="102">treino 2</option>
+                          <option value="103">treino 3</option>
+                          <option value="104">treino 4</option>
+                          <option value="105">treino 5</option>
+                          <option value="106">treino 6</option>
                         </select>
                         <Errors className="text-red-500" />
                       </div>
