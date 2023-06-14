@@ -3,6 +3,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getAulas } from "~/utils/aulas.server";
 import { FaMapMarkedAlt, FaWhatsapp, FaClock } from "react-icons/fa";
+import { GiGymBag } from "react-icons/gi";
 import Aulas from "~/components/Aulas";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -15,125 +16,169 @@ export default function Index() {
 
   return (
     <div className="bg-stone-100 md:pt-4 h-screen ">
-      <div className="container bg-white py-4 px-6 h-screen mx-auto rounded-lg ">
-        <section className="mb-12 text-gray-800 lg:text-left">
-          <div className="grid  lg:grid-cols-3 gap-6 xl:gap-12 items-center">
-            <div className="mb-2 lg:mb-0 ">
-              {/* <h2 className="text-5xl md:text-6xl xl:text-7xl font-bold ">
-                Quattor <br />
-                <span className="text-blue-600">Academia</span>
-              </h2> */}
-              <div className="  ">
-                <img
-                  src="logo_alto.svg"
-                  className="w-48 mx-auto md:mx-0 md:w-[240px] "
-                  alt="logo"
-                />
-              </div>
-            </div>
-            <div className="mb-6 lg:mb-0">
-              <div className="flex  items-baseline mb-3">
-                <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
-                  <FaMapMarkedAlt />
-                </div>
-                <h2 className="text-gray-900 text-lg title-font font-medium">
-                  Onde Estamos
-                </h2>
-              </div>
-              <div className="px-10 text-center  md:text-start  ">
-                <p className="font-semibold text-lg  md:text-base">
-                  Rua 5 Sul - Águas Claras - DF
-                </p>
-                <div className="">
-                  <a
-                    href="https://wa.me/5561993190568"
-                    className="mt-2 text-xl font-semibold inline-flex items-center ">
-                    <FaWhatsapp className="text-green-600 text-3xl  " />
-                    (61) 99319-0568
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="flex items-baseline mb-3">
-                <div className="w-8 h-8  mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
-                  <FaClock />
-                </div>
-                <h2 className="text-gray-900 text-lg title-font font-medium">
-                  Horário de Funcionamento
-                </h2>
-              </div>
-              <div className="flex-grow px-10  font-medium text-center md:text-start ">
-                <p className="leading-relaxed ">
-                  <span className=" text-gray-900 ">Segunda a Sexta:</span> 6h
-                  às 23h
-                </p>
-                <p className="leading-relaxed ">
-                  <span className=" text-gray-900 ">Sábados e Feriados:</span>{" "}
-                  8h às 12h
-                </p>
-                <p className="leading-relaxed  ">
-                  <span className=" text-gray-900 ">Domingos:</span> 8h às 12h
-                </p>
-              </div>
-            </div>
+      <div className=" bg-white py-4 px-6 mx-auto rounded-lg ">
+        <div className="w-full h-[160px] md:h-[340px]">
+          <img
+            src="/back_cinza.jpg"
+            alt="background"
+            className="w-full h-full "
+          />
+        </div>
+        <div className="flex flex-col items-center md:-mt-44 -mt-32">
+          <img src="/back1.svg" alt="logo" className="w-52 md:w-72 " />
+          <div className="flex items-center space-x-2 mt-2">
+            <p className="text-2xl">Rua 5 sul - Águas Claras</p>
           </div>
-        </section>
-        <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
-          <div className="mx-2 mt-5">
-            <img
-              className="rounded-lg bg-cover"
-              src="/foto_brinquedoteca.jpg"
-              alt=""
-            />
-            <div className="flex flex-row justify-between items-start mt-4">
-              <div>
-                <p className="text-lg font-bold text-red-400 ">Briquedoteca</p>
-                <p className="text-gray-500 mb-4">Com Monitor </p>
-                {/* <p className="text-sm text-gray-800">Infantil</p> */}
-              </div>
-            </div>
+          <p className="text-gray-700">
+            <a
+              href="https://wa.me/5561993190568"
+              className="mt-2 text-xl font-semibold inline-flex items-center ">
+              <FaWhatsapp className="text-green-600 text-3xl mr-2  " />
+              (61) 99319-0568
+            </a>
+          </p>
+          <p className="text-sm text-gray-500">
+            Seg à sex 6h às 23h - sab / dom / Feriados - 8h às 12h
+          </p>
+        </div>
+        <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2 mb-4">
+          <div className="flex items-center space-x-4 mt-2">
+            <a
+              href="https://wa.me/5561993190568"
+              className="flex items-center bg-blue-400 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
+              <GiGymBag />
+              <span>Agendar Aula </span>
+            </a>
+            <a
+              href="https://wa.me/5561993190568"
+              className="flex items-center bg-blue-400 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Mensagem</span>
+            </a>
           </div>
-          <div className="mx-2 mt-5 hidden md:block">
-            <img className="rounded-lg bg-cover " src="/foto_judo.jpg" alt="" />
-            <div className="flex flex-row justify-between items-start mt-4">
-              <div>
-                <p className="text-lg font-bold text-blue-400 ">Judo</p>
-                <p className="text-gray-500 mb-4">Infantil </p>
-                {/* <p className="text-sm text-gray-800">Infantil</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="mx-2 mt-5">
-            <img
-              className="rounded-lg bg-cover"
-              src="/foto_natacao.jpg"
-              alt=""
-            />
-            <div className="flex flex-row justify-between items-start mt-4">
-              <div>
-                <p className="text-lg font-bold text-blue-400 ">Natação</p>
-                <p className="text-gray-500 mb-4">Infantil</p>
-                {/* <p className="text-sm text-gray-800">Infantil</p> */}
-              </div>
-            </div>
-          </div>
-          <div className="mx-2 mt-5">
-            <img
-              className="rounded-lg bg-cover"
-              src="/musculacao_foto.jpg"
-              alt=""
-            />
-            <div className="flex flex-row justify-between items-start mt-4">
-              <div>
-                <p className="text-lg font-bold text-blue-400 ">Musculação</p>
-                <p className="text-gray-500 mb-4">Método Exclusivo</p>
-                {/* <p className="text-sm text-gray-800">Infantil</p> */}
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
 
-          {/* <div className="bg-white block rounded-lg shadow-lg -rotate-2">
+      {/* <section className="mb-12 text-gray-800 lg:text-left">
+        <div className="grid  lg:grid-cols-3 gap-6 xl:gap-12 items-center">
+          <div className="mb-2 lg:mb-0 ">
+          
+            <div className="  ">
+              <img
+                src="logo_alto.svg"
+                className="w-48 mx-auto md:mx-0 md:w-[240px] "
+                alt="logo"
+              />
+            </div>
+          </div>
+          <div className="mb-6 lg:mb-0">
+            <div className="flex  items-baseline mb-3">
+              <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0">
+                <FaMapMarkedAlt />
+              </div>
+              <h2 className="text-gray-900 text-lg title-font font-medium">
+                Onde Estamos
+              </h2>
+            </div>
+            <div className="px-10 text-center  md:text-start  ">
+              <p className="font-semibold text-lg  md:text-base">
+                Rua 5 Sul - Águas Claras - DF
+              </p>
+              <div className="">
+                <a
+                  href="https://wa.me/5561993190568"
+                  className="mt-2 text-xl font-semibold inline-flex items-center ">
+                  <FaWhatsapp className="text-green-600 text-3xl  " />
+                  (61) 99319-0568
+                </a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="flex items-baseline mb-3">
+              <div className="w-8 h-8  mr-3 inline-flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
+                <FaClock />
+              </div>
+              <h2 className="text-gray-900 text-lg title-font font-medium">
+                Horário de Funcionamento
+              </h2>
+            </div>
+            <div className="flex-grow px-10  font-medium text-center md:text-start ">
+              <p className="leading-relaxed ">
+                <span className=" text-gray-900 ">Segunda a Sexta:</span> 6h às
+                23h
+              </p>
+              <p className="leading-relaxed ">
+                <span className=" text-gray-900 ">Sábados e Feriados:</span> 8h
+                às 12h
+              </p>
+              <p className="leading-relaxed  ">
+                <span className=" text-gray-900 ">Domingos:</span> 8h às 12h
+              </p>
+            </div>
+          </div>
+        </div>
+      </section> */}
+      <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
+        <div className="mx-2 mt-5">
+          <img
+            className="rounded-lg bg-cover"
+            src="/foto_brinquedoteca.jpg"
+            alt=""
+          />
+          <div className="flex flex-row justify-between items-start mt-4">
+            <div>
+              <p className="text-lg font-bold text-red-400 ">Briquedoteca</p>
+              <p className="text-gray-500 mb-4">Com Monitor </p>
+              {/* <p className="text-sm text-gray-800">Infantil</p> */}
+            </div>
+          </div>
+        </div>
+        <div className="mx-2 mt-5 hidden md:block">
+          <img className="rounded-lg bg-cover " src="/foto_judo.jpg" alt="" />
+          <div className="flex flex-row justify-between items-start mt-4">
+            <div>
+              <p className="text-lg font-bold text-blue-400 ">Judo</p>
+              <p className="text-gray-500 mb-4">Infantil </p>
+              {/* <p className="text-sm text-gray-800">Infantil</p> */}
+            </div>
+          </div>
+        </div>
+        <div className="mx-2 mt-5">
+          <img className="rounded-lg bg-cover" src="/foto_natacao.jpg" alt="" />
+          <div className="flex flex-row justify-between items-start mt-4">
+            <div>
+              <p className="text-lg font-bold text-blue-400 ">Natação</p>
+              <p className="text-gray-500 mb-4">Infantil</p>
+              {/* <p className="text-sm text-gray-800">Infantil</p> */}
+            </div>
+          </div>
+        </div>
+        <div className="mx-2 mt-5">
+          <img
+            className="rounded-lg bg-cover"
+            src="/musculacao_foto.jpg"
+            alt=""
+          />
+          <div className="flex flex-row justify-between items-start mt-4">
+            <div>
+              <p className="text-lg font-bold text-blue-400 ">Musculação</p>
+              <p className="text-gray-500 mb-4">Método Exclusivo</p>
+              {/* <p className="text-sm text-gray-800">Infantil</p> */}
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="bg-white block rounded-lg shadow-lg -rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/bale_foto.jpg"
@@ -156,7 +201,7 @@ export default function Index() {
               <p className="text-gray-500 mb-4">Infantil e Adulto </p>
             </div>
           </div> */}
-          {/* <div className="bg-white hidden md:block rounded-lg shadow-lg rotate-2">
+        {/* <div className="bg-white hidden md:block rounded-lg shadow-lg rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/judo_foto_pb.jpg"
@@ -180,7 +225,7 @@ export default function Index() {
             </div>
           </div> */}
 
-          {/* <div className="bg-white hidden md:block  rounded-lg shadow-lg -rotate-2.5 ">
+        {/* <div className="bg-white hidden md:block  rounded-lg shadow-lg -rotate-2.5 ">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/muai_foto.jpg"
@@ -206,7 +251,7 @@ export default function Index() {
             </div>
           </div> */}
 
-          {/* <div className="bg-white  block  rounded-lg shadow-lg rotate-2">
+        {/* <div className="bg-white  block  rounded-lg shadow-lg rotate-2">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/natacao_foto_pb.jpg"
@@ -230,7 +275,7 @@ export default function Index() {
             </div>
           </div> */}
 
-          {/* <div className="bg-white block  rounded-lg shadow-lg -rotate-2.5">
+        {/* <div className="bg-white block  rounded-lg shadow-lg -rotate-2.5">
             <div className="relative overflow-hidden bg-no-repeat bg-cover">
               <img
                 src="/musculacao_foto.jpg"
@@ -253,12 +298,12 @@ export default function Index() {
               <p className="text-gray-500 mb-4">Método Exclusivo</p>
             </div>
           </div> */}
-        </div>
+      </div>
 
-        <div className="overflow-auto rounded-lg mb-2 max-h-[500px] ">
-          <Aulas aulas={TodasAulas} />
-        </div>
+      <div className="overflow-auto rounded-lg mb-2 max-h-[500px] ">
+        <Aulas aulas={TodasAulas} />
       </div>
     </div>
+    // </div>
   );
 }
