@@ -2,7 +2,7 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getAulas } from "~/utils/aulas.server";
-import { FaMapMarkedAlt, FaWhatsapp, FaClock } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { GiGymBag } from "react-icons/gi";
 import Aulas from "~/components/Aulas";
 
@@ -15,17 +15,17 @@ export default function Index() {
   const { TodasAulas } = useLoaderData();
 
   return (
-    <div className="bg-stone-100 md:pt-4 h-screen ">
+    <div className="md:pt-4 h-screen md:container md:mx-auto ">
       <div className=" bg-white py-4 px-6 mx-auto rounded-lg ">
-        <div className="w-full h-[160px] md:h-[340px]">
+        <div className=" h-[140px] w-[100px] md:w-[400px] md:h-[200px]">
           <img
-            src="/back_cinza.jpg"
+            src="/back_cinza.svg"
             alt="background"
-            className="w-full h-full "
+            className=" hidden md:block w-full h-full "
           />
         </div>
         <div className="flex flex-col items-center md:-mt-44 -mt-32">
-          <img src="/back1.svg" alt="logo" className="w-52 md:w-72 " />
+          <img src="/back1.svg" alt="logo" className="w-48 md:w-72 " />
           <div className="flex items-center space-x-2 mt-2">
             <p className="text-2xl">Rua 5 sul - Águas Claras</p>
           </div>
@@ -58,9 +58,9 @@ export default function Index() {
                 viewBox="0 0 20 20"
                 fill="currentColor">
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                  clip-rule="evenodd"></path>
+                  clipRule="evenodd"></path>
               </svg>
               <span>Mensagem</span>
             </a>
