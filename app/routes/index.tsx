@@ -38,7 +38,7 @@ export default function Index() {
             </a>
           </p>
           <p className="text-sm text-gray-500">
-            Seg à sex 6h às 23h - sab / dom / Feriados - 8h às 12h
+            Seg à sex 6h - 23h - sab / dom / Feriados - 8h - 12h
           </p>
         </div>
         <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2 mb-4">
@@ -47,7 +47,7 @@ export default function Index() {
               href="https://wa.me/5561993190568"
               className="flex items-center bg-blue-400 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
               <GiGymBag />
-              <span>Agendar Aula </span>
+              <span>Agendar </span>
             </a>
             <a
               href="https://wa.me/5561993190568"
