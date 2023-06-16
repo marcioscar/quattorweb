@@ -21,7 +21,7 @@ export default function Index() {
           <img
             src="/back_cinza.svg"
             alt="background"
-            className=" hidden md:block w-full h-full "
+            className="hidden  md:block w-full h-full "
           />
         </div>
         <div className="flex flex-col items-center md:-mt-44 -mt-32">
@@ -40,6 +40,13 @@ export default function Index() {
           <p className="text-sm text-gray-500">
             Seg à sex 6h - 23h - sab / dom / Feriados - 8h - 12h
           </p>
+
+          {/* <a href="https://wa.me/5561993190568">
+            <img
+              alt="gym"
+              src="https://assets-cdn.gympass.com/images/mep-strapi-blog/thumbnail_5_PT_3c78db3fc7.png”"
+            />
+          </a> */}
         </div>
         <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2 mb-4">
           <div className="flex items-center space-x-4 mt-2">

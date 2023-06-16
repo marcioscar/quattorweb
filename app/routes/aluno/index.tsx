@@ -54,9 +54,10 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const aluno = await getAluno(session.get("aluno").id);
   const treinosGrupo = await getTreinos(getWeek(new Date()));
+
   // const historicoTreinos = await getHistorico(4);
   const historicoTreinos = await getHistorico(Number(session.get("aluno").id));
-  console.log(session.get("aluno").id);
+
   return json({ aluno, treinosGrupo, historicoTreinos });
 };
 export const action: ActionFunction = async ({ request }) => {
@@ -70,9 +71,11 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Treino() {
   const { aluno, treinosGrupo, historicoTreinos } = useLoaderData();
   const [grupo, setGrupo] = useState("");
+
   const [tipoTreinoGrupo, SetTipoTreinoGRupo] = useState(
-    treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
+    treinosGrupo.filter((el: any) => el.grupo.includes(""))
   );
+  console.log(tipoTreinoGrupo);
   const [treino, setTreino] = useState();
   const [checked, setChecked] = useState([]);
   const transition = useTransition();
@@ -87,45 +90,45 @@ export default function Treino() {
       inputs[i].checked = false;
     }
   };
+  //TIPO DE TREINO 2x ...grupo
+  // const handleTipoTreino = (event: any) => {
+  //   setGrupo("");
+  //   let tp = event.target.value;
 
-  const handleTipoTreino = (event: any) => {
-    setGrupo("");
-    let tp = event.target.value;
+  //   switch (tp) {
+  //     case "2X":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
+  //       );
+  //       break;
+  //     case "3X":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => el.grupo.includes("3X"))
+  //       );
+  //       break;
+  //     case "4X":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => el.grupo.includes("4X"))
+  //       );
+  //       break;
+  //     case "5X":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => el.grupo.includes("5X"))
+  //       );
+  //       break;
+  //     case "6X":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => el.grupo.includes("6X"))
+  //       );
+  //       break;
 
-    switch (tp) {
-      case "2X":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => el.grupo.includes("2X"))
-        );
-        break;
-      case "3X":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => el.grupo.includes("3X"))
-        );
-        break;
-      case "4X":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => el.grupo.includes("4X"))
-        );
-        break;
-      case "5X":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => el.grupo.includes("5X"))
-        );
-        break;
-      case "6X":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => el.grupo.includes("6X"))
-        );
-        break;
-
-      case "grupo":
-        SetTipoTreinoGRupo(
-          treinosGrupo.filter((el: any) => !el.grupo.includes("TREINO"))
-        );
-        break;
-    }
-  };
+  //     case "grupo":
+  //       SetTipoTreinoGRupo(
+  //         treinosGrupo.filter((el: any) => !el.grupo.includes("TREINO"))
+  //       );
+  //       break;
+  //   }
+  // };
 
   const handleCheck = (event: any) => {
     var updatedList = [...checked];
@@ -201,7 +204,8 @@ export default function Treino() {
           )}
         </div>
 
-        <div className="w-full max-w-lg mb-2 md:max-w-6xl px-6 py-3 mx-auto border bg-white rounded-lg  ">
+        {/* //TIPO DE TREINO */}
+        {/* <div className="w-full max-w-lg mb-2 md:max-w-6xl px-6 py-3 mx-auto border bg-white rounded-lg  ">
           <h1 className="font-semibold mb-3">Treinos por Semana</h1>
           <div className="flex justify-between text-sm text-center item-center">
             <div>
@@ -295,7 +299,7 @@ export default function Treino() {
               </label>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className=" max-w-lg flex mx-auto ">
           <select
