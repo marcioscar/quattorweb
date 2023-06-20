@@ -12,6 +12,11 @@ type HistoricoTreinos {
   treino String?
 }
 
+type Planejados {
+  data String
+  treinoP String? 
+}
+
 type TreinosExercicios {
   Repeticoes String
   carga      String
@@ -25,6 +30,7 @@ model historico {
   id      String             @id @default(auto()) @map("_id") @db.ObjectId
   aluno   Int                @unique
   treinos HistoricoTreinos[]
+  planejados Planejados[]
 }
 
 model treinos {

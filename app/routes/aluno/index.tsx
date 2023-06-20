@@ -75,11 +75,35 @@ export default function Treino() {
   const [tipoTreinoGrupo, SetTipoTreinoGRupo] = useState(
     treinosGrupo.filter((el: any) => el.grupo.includes(""))
   );
-  console.log(tipoTreinoGrupo);
+
   const [treino, setTreino] = useState();
   const [checked, setChecked] = useState([]);
   const transition = useTransition();
+
+  // console.log(historicoTreinos.treinos);
+  const hitTreino = _.mapValues(historicoTreinos.treinos, function (o) {
+    const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+      locale: ptBR,
+    });
+    return { treino: o.treino, data };
+  });
+  // console.log(hitTreino);
+
+  const grupotreino = _.map(_.groupBy(hitTreino, "data"), (data, idx) => {
+    return { data: idx, treino: data };
+  });
+
+  // console.log(
+  //   format(new Date("2023-06-19T18:51:00.011Z"), "dd/MM", {
+  //     locale: ptBR,
+  //   })
+  // );
+
+  const ultimos = _.takeRight(grupotreino, 3);
+  console.log(ultimos);
+
   const ultimosTreinos = _.takeRight(historicoTreinos?.treinos, 3);
+  // console.log(historicoTreinos.treinos);
 
   const handleGrupo = (event: any) => {
     setGrupo(event.target.value);
@@ -90,7 +114,7 @@ export default function Treino() {
       inputs[i].checked = false;
     }
   };
-  //TIPO DE TREINO 2x ...grupo
+  //TIPO DE TREINO 2x..grupo
   // const handleTipoTreino = (event: any) => {
   //   setGrupo("");
   //   let tp = event.target.value;
@@ -179,22 +203,41 @@ export default function Treino() {
             {aluno?.firstName} {aluno?.lastName} -{" "}
             <span className="font-mono text-gray-400"> {aluno?.idMember}</span>
           </h5>
+          {/* {ultimosTreinos && (
+            <>
+              <h2 className="  text-blue-600 rounded-md  text-md mt-4">
+                PLANEJAMENTO
+              </h2>
+              <div className="text-gray-500 grid  gap-2 grid-cols-3">
+                {ultimos.map((u: any, index) => (
+                  <div key={index} className="">
+                    <div className="mt-1 mb-4  py-2 px-2 rounded-md my-4">
+                      <div>{u.data}</div>
+                      <div className="font-semibold text-blue-600">
+                        {u.treino.map((t: any, index: any) => (
+                          <div key={index}>{t.treino}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )} */}
           {ultimosTreinos && (
             <>
               <h2 className="  text-blue-600 rounded-md  text-md mt-4">
                 ÚLTIMOS TREINOS
               </h2>
               <div className="text-gray-500 grid  gap-2 grid-cols-3">
-                {ultimosTreinos.map((u: any, index) => (
+                {ultimos.map((u: any, index) => (
                   <div key={index} className="">
                     <div className="mt-1 mb-4  py-2 px-2 rounded-md my-4">
+                      <div>{u.data}</div>
                       <div className="font-semibold text-blue-600">
-                        {u.treino}
-                      </div>
-                      <div>
-                        {format(new Date(u.data), "EEEEEE - dd/MM", {
-                          locale: ptBR,
-                        })}
+                        {u.treino.map((t: any, index: any) => (
+                          <div key={index}>{t.treino}</div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -325,6 +368,7 @@ export default function Treino() {
               hidden
               type="number"
               name="aluno"
+              readOnly
               defaultValue={aluno.idMember}
             />
 
