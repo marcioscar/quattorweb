@@ -72,7 +72,7 @@ export default function Treino() {
       </div>
       <footer>
         <img
-          className=" h-[80px] pt-1 mx-auto items-center"
+          className=" h-[100px] pt-1 mx-auto items-center"
           alt="footer"
           src="/forca.svg"
         />

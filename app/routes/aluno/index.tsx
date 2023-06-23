@@ -100,7 +100,6 @@ export default function Treino() {
   // );
 
   const ultimos = _.takeRight(grupotreino, 3);
-  console.log(ultimos);
 
   const ultimosTreinos = _.takeRight(historicoTreinos?.treinos, 3);
   // console.log(historicoTreinos.treinos);
@@ -190,7 +189,7 @@ export default function Treino() {
 
   return (
     <>
-      <Outlet />
+      {/* <Outlet /> */}
 
       <div className=" px-2 mx-auto ">
         <div className="text-center">

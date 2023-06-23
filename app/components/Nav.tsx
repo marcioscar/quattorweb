@@ -75,7 +75,7 @@ export default function Index(aluno: any) {
                   TREINOS
                 </NavLink>
               </li>
-              <li className="font-semibold text-gray-600 hover:text-blue-600">
+              <li className=" md:hidden font-semibold text-gray-600 hover:text-blue-600">
                 <NavLink
                   to="/spinning"
                   onClick={() => setNavbar(!navbar)}
@@ -85,6 +85,19 @@ export default function Index(aluno: any) {
                   SPINNING
                 </NavLink>
               </li>
+
+              {aluno.aluno?.idMember === 4 && (
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <NavLink
+                    to="/aluno/planejamento"
+                    onClick={() => setNavbar(!navbar)}
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : NoaActiveClassName
+                    }>
+                    PLANEJAMENTO
+                  </NavLink>
+                </li>
+              )}
               {aluno.aluno?.idMember === 17841 && (
                 <>
                   <li className="font-semibold text-gray-600 hover:text-blue-600">

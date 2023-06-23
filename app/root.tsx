@@ -1,3 +1,4 @@
+import styles from "./globals.css";
 import type {
   LinksFunction,
   LoaderFunction,
@@ -19,9 +20,7 @@ import Nav from "./components/Nav";
 import { getSession } from "./session.server";
 import { getAluno } from "./utils/aluno.server";
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: stylesheet },
-];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

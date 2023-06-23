@@ -27,6 +27,29 @@ export const getAluno = async (matricula: number) => {
   }
 };
 
+export const getAlunoNome = async (nome: string) => {
+  if (!nome) {
+    return null;
+  }
+  try {
+    const aluno = await fetch(
+      `https://evo-integracao.w12app.com.br/api/v1/members?name=${nome}&status=1&take=50&skip=0&onlyPersonal=false`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Basic " + btoa(EVO_AUTH as string),
+        },
+      }
+    );
+    // if (aluno.status === 400) {
+    //   throw "Aluno não Encontrado";
+    // }
+    return aluno.json();
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getTreinos = async (semana: number) => {
   return prisma.treinos.findMany({
     where: {
@@ -71,7 +94,24 @@ export const updateHistorico = async (historico: any) => {
     },
   });
 };
-
+export const updateFicha = async (ficha: any) => {
+  return prisma.historico.upsert({
+    where: {
+      aluno: parseInt(ficha.aluno),
+    },
+    update: {
+      historico: ficha.historico,
+      nivel: ficha.nivel,
+      patologias: ficha.patologias,
+    },
+    create: {
+      aluno: parseInt(ficha.aluno),
+      historico: ficha.historico,
+      nivel: ficha.nivel,
+      patologias: ficha.patologias,
+    },
+  });
+};
 export const getHistorico = async (historico: any) => {
   // if (!historico) {
   //   return null;
