@@ -1,5 +1,7 @@
+import { parse } from "date-fns";
 import { prisma } from "./prisma.server";
 import fetch from "@remix-run/web-fetch";
+import ptBR from "date-fns/locale/pt-BR";
 
 const EVO_AUTH = process.env.NEXT_PUBLIC_EVO_AUTH;
 
@@ -94,6 +96,33 @@ export const updateHistorico = async (historico: any) => {
     },
   });
 };
+
+export const updatePlanejamento = async (historico: any) => {
+  console.log(Date.parse(historico.data));
+
+  console.log(new Date(Date.parse(historico.data)));
+
+  return prisma.historico.upsert({
+    where: {
+      aluno: parseInt(historico.aluno),
+    },
+    update: {
+      planejados: {
+        push: {
+          treinoP: historico.treino,
+          data: new Date(Date.parse(historico.data)),
+        },
+      },
+    },
+    create: {
+      aluno: parseInt(historico.aluno),
+      planejados: {
+        treinoP: historico.treino,
+        data: new Date(Date.parse(historico.data)),
+      },
+    },
+  });
+};
 export const updateFicha = async (ficha: any) => {
   return prisma.historico.upsert({
     where: {
@@ -113,9 +142,10 @@ export const updateFicha = async (ficha: any) => {
   });
 };
 export const getHistorico = async (historico: any) => {
-  // if (!historico) {
-  //   return null;
-  // }
+  if (!historico) {
+    return null;
+  }
+  console.log(historico);
 
   return prisma.historico.findUnique({
     where: {

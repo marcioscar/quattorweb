@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { makeDomainFunction } from "domain-functions";
 import { Form, performMutation } from "remix-forms";
-import type { ActionArgs, ActionFunction } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { updateTreino } from "~/utils/treinos.server";
 import { Outlet, useTransition } from "@remix-run/react";

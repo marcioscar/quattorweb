@@ -1,11 +1,7 @@
 import { getAluno, getHistorico, updateFicha } from "@/utils/aluno.server";
-import {
-  ActionFunction,
-  json,
-  redirect,
-  type LoaderFunction,
-} from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import type { ActionFunction } from "@remix-run/node";
+import { json, redirect, type LoaderFunction } from "@remix-run/node";
+import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 import _ from "lodash";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -16,6 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const aluno = await getAluno(Number(params.idaluno));
@@ -34,8 +32,25 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Idaluno() {
   const { aluno, historico } = useLoaderData();
 
+  const PlaneTreino = _.mapValues(
+    _.orderBy(historico.planejados, ["data", "asc"]),
+    function (o) {
+      const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+        locale: ptBR,
+      });
+      return { treino: o.treinoP, data };
+    }
+  );
+
+  const grupotreino = _.map(_.groupBy(PlaneTreino, "data"), (data, idx) => {
+    return { data: idx, treino: data };
+  });
+
+  const ultimos = _.takeRight(grupotreino, 7);
+
   return (
     <div>
+      <Outlet />
       <Form method="post">
         <input
           hidden
@@ -100,7 +115,37 @@ export default function Idaluno() {
             </Button>
           </CardContent>
         </Card>
+        <div className="">
+          <div className="">
+            {ultimos && (
+              <>
+                <h2 className="  text-stone-600 rounded-md font-semibold  text-center text-lg mt-4">
+                  Treinos Planejados
+                </h2>
+                <div className="text-stone-500 place-content-center  container mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-5 lg:container-lg">
+                  {ultimos.map((u: any, index) => (
+                    <div key={index} className="">
+                      <div className="mt-1 mb-4  py-2 px-2 rounded-md my-4 text-center">
+                        <div>{u.data}</div>
+                        <div className="font-semibold text-blue-600 text-center">
+                          {u.treino.map((t: any, index: any) => (
+                            <div key={index}>{t.treino}</div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </Form>
+      <div className=" container text-center">
+        <Link className="bg-stone-300 rounded-lg px-6 p-2 " to={"novo"}>
+          Novo Treino
+        </Link>
+      </div>
     </div>
   );
 }

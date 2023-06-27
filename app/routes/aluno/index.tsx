@@ -57,6 +57,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   // const historicoTreinos = await getHistorico(4);
   const historicoTreinos = await getHistorico(Number(session.get("aluno").id));
+  console.log(historicoTreinos);
 
   return json({ aluno, treinosGrupo, historicoTreinos });
 };
@@ -81,13 +82,12 @@ export default function Treino() {
   const transition = useTransition();
 
   // console.log(historicoTreinos.treinos);
-  const hitTreino = _.mapValues(historicoTreinos.treinos, function (o) {
+  const hitTreino = _.mapValues(historicoTreinos?.treinos, function (o) {
     const data = format(new Date(o.data), "EEEEEE - dd/MM", {
       locale: ptBR,
     });
     return { treino: o.treino, data };
   });
-  // console.log(hitTreino);
 
   const grupotreino = _.map(_.groupBy(hitTreino, "data"), (data, idx) => {
     return { data: idx, treino: data };
@@ -377,7 +377,6 @@ export default function Treino() {
                   {grupo}
                   <button className="bg-blue-500   inline-flex gap-3 items-center px-3 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md  hover:shadow-lg hover:bg-green-800">
                     <FaCheck />
-
                     {transition.state === "submitting"
                       ? "Atualizando..."
                       : "Feito"}

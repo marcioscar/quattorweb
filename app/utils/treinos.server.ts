@@ -108,3 +108,12 @@ export const updateTreino = async (treino: any) => {
     },
   });
 };
+
+export const treinos = {
+  grupos: [
+    {
+      value: "PANTURRILHA",
+      label: "Panturrilha",
+    },
+  ],
+};
