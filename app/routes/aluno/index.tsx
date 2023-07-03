@@ -252,7 +252,7 @@ export default function Treino() {
                   </div>
                 </div>
                 <div className="text-stone-600 place-content-center gap-2  mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
-                  {ultimosPlan.map((u: any, index: any) => (
+                  {ultimosPlan?.map((u: any, index: any) => (
                     <div key={index} className="border rounded-md">
                       <div className=" text-center">
                         <div className="bg-stone-200">{u.data}</div>
