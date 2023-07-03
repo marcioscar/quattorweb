@@ -20,7 +20,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import ptBR from "date-fns/locale/pt-BR";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { updatePlanejamento } from "@/utils/aluno.server";
 import { Check, ChevronsUpDown } from "lucide-react";
 import {
@@ -31,34 +31,10 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { treinos } from "@/utils/treinos.server";
-
-const grupos1 = [
-  {
-    value: "OMBROS",
-    label: "Ombros",
-  },
-  {
-    value: "PANTURRILHA",
-    label: "Panturrilha",
-  },
-  {
-    value: "COSTAS",
-    label: "Costas",
-  },
-  {
-    value: "costa",
-    label: "Costa",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
+import { Input } from "@/components/ui/input";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const grupos = treinos;
-  console.log(grupos);
-
   return grupos;
 };
 export const action: ActionFunction = async ({ request }) => {
@@ -69,12 +45,9 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(`..`);
 };
 export default function Maquina() {
-  const grupos = useLoaderData();
-  console.log(grupos);
-  console.log(grupos1);
+  const { grupos } = useLoaderData();
   const { aluno } = useRouteLoaderData("routes/aluno/planejamento/$idaluno");
-  // const aluno = useLoaderData();
-  // console.log(aluno);
+
   const [open, setOpen] = useState(false);
   const [treino, setTreino] = useState("");
 
@@ -86,61 +59,35 @@ export default function Maquina() {
 
   return (
     <Modal onClose={closeHandler}>
-      <Form method="post" className="font-semibold ">
-        <div className=" text-center">
+      <Form
+        method="post"
+        className="font-semibold grid space-x-2 space-y-4 grid-cols-1 md:grid-cols-2 ">
+        <div className=" md:col-span-2 text-center mb-4">
           Planejamento de treino - {aluno.firstName}{" "}
         </div>
-        <div className="mt-2 text-left">
-          <input hidden required value={date} id="data" name="data" />
-          <input hidden value={aluno.idMember} id="aluno" name="aluno" />
-          <input hidden value={treino} name="treino" id="treino"></input>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"outline"}
-                className={cn(
-                  "w-[280px] justify-start font-normal",
-                  !date && "text-muted-foreground"
-                )}>
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? (
-                  format(date, "ccc, dd/MM", { locale: ptBR })
-                ) : (
-                  <span>Selecione a data:</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
+
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[200px] justify-between">
+              className="w-[300px] text-stone-500 justify-between">
               {treino.toUpperCase()
                 ? grupos.find(
-                    (grupo) => grupo.value.toUpperCase() == treino.toUpperCase()
+                    (grupo: any) =>
+                      grupo.value.toUpperCase() == treino.toUpperCase()
                   )?.label
                 : "Selecione o Treino.."}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0">
+          <PopoverContent className="w-[300px] p-0">
             <Command>
               <CommandInput placeholder="Procurar Treino..." />
-              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandEmpty>Treino não encontrado</CommandEmpty>
               <CommandGroup>
-                {grupos.map((grupo) => (
+                {grupos.map((grupo: any) => (
                   <CommandItem
                     key={grupo.value}
                     onSelect={(currentValue) => {
@@ -166,34 +113,47 @@ export default function Maquina() {
             </Command>
           </PopoverContent>
         </Popover>
-        {/* <div className="mt-3">
-          <select
-            className="rounded-md border-2 
-                          w-3/4 h-8 mx-auto "
-            name="treino"
-            id="treino">
-            <option value="">Selecione o Treino</option>
-            <option value="PEITORAL">PEITORAL</option>
-            <option value="OMBROS">OMBROS</option>
-            <option value="MEMBROS SUPERIORES 1">MEMBROS SUPERIORES 1</option>
-            <option value="COSTAS">COSTAS</option>
-            <option value="MEMBROS SUPERIORES 2">MEMBROS SUPERIORES 2</option>
-            <option value="BICEPS">BICEPS</option>
-            <option value="TRICEPS">TRICEPS</option>
-            <option value="QUADS">QUADS</option>
-            <option value="POSTERIORES DE COXAS">POSTERIORES DE COXAS</option>
-            <option value="GLUTEOS">GLUTEOS</option>
-            <option value="PANTURRILHA">PANTURRILHA</option>
-            <option value="ABDOME">ABDOME</option>
-            <option value="MEMBROS INFERIORES GERAL">
-              MEMBROS INFERIORES GERAL
-            </option>
-            <option value="MEMBROS SUPERIORES GERAL">
-              MEMBROS SUPERIORES GERAL
-            </option>
-          </select>
-        </div> */}
-        <Button variant="secondary" className="bg-stone-400  text-black mt-3">
+        <div className=" text-left">
+          <input hidden required value={date} id="data" name="data" />
+          <input hidden value={aluno.idMember} id="aluno" name="aluno" />
+          <input hidden value={treino} name="treino" id="treino"></input>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[300px] justify-start font-normal",
+                  !date && "text-muted-foreground"
+                )}>
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? (
+                  format(date, "ccc, dd/MM", { locale: ptBR })
+                ) : (
+                  <span>Selecione a data:</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+        <Input
+          className="md:col-span-2"
+          type="text"
+          id="treinolivre"
+          name="treinolivre"
+          placeholder="Treino"
+        />
+
+        <Button
+          variant="secondary"
+          className="bg-stone-400 md:col-span-2 text-black ">
           Salvar
         </Button>
       </Form>

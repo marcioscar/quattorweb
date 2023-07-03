@@ -1,19 +1,12 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { Form, Link, useLoaderData, useTransition } from "@remix-run/react";
 import {
-  Form,
-  Link,
-  Outlet,
-  useLoaderData,
-  useTransition,
-} from "@remix-run/react";
-
-import {
+  TreinoPlanejadoFeito,
   getAluno,
   getHistorico,
   getTreinos,
-  updateHistorico,
 } from "../../utils/aluno.server";
 import { getWeek } from "date-fns";
 import format from "date-fns/format";
@@ -27,7 +20,6 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 import { FiVideo } from "react-icons/fi";
-
 import { commitSession, getSession } from "~/session.server";
 
 type grupo = {
@@ -57,14 +49,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   // const historicoTreinos = await getHistorico(4);
   const historicoTreinos = await getHistorico(Number(session.get("aluno").id));
-  console.log(historicoTreinos);
 
   return json({ aluno, treinosGrupo, historicoTreinos });
 };
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   let values = Object.fromEntries(form);
-  await updateHistorico(values);
+  const test = await TreinoPlanejadoFeito(values);
 
   return redirect(`/aluno`);
 };
@@ -72,6 +63,7 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Treino() {
   const { aluno, treinosGrupo, historicoTreinos } = useLoaderData();
   const [grupo, setGrupo] = useState("");
+  const [dt, setDt] = useState(Date);
 
   const [tipoTreinoGrupo, SetTipoTreinoGRupo] = useState(
     treinosGrupo.filter((el: any) => el.grupo.includes(""))
@@ -93,6 +85,27 @@ export default function Treino() {
     return { data: idx, treino: data };
   });
 
+  const PlaneTreino = _.mapValues(
+    _.orderBy(historicoTreinos.planejados, ["data", "asc"]),
+    function (o) {
+      const dt = o.data;
+      const feito = o.feito;
+      const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+        locale: ptBR,
+      });
+      return { treino: o.treinoP, data, dt, feito };
+    }
+  );
+
+  const grupotreinoPlan = _.map(
+    _.groupBy(PlaneTreino, "data"),
+    (data, idx, dt, feito) => {
+      return { data: idx, treino: data, dt: dt, feito: feito };
+    }
+  );
+
+  const ultimosPlan = _.takeRight(grupotreinoPlan, 7);
+
   // console.log(
   //   format(new Date("2023-06-19T18:51:00.011Z"), "dd/MM", {
   //     locale: ptBR,
@@ -105,7 +118,9 @@ export default function Treino() {
   // console.log(historicoTreinos.treinos);
 
   const handleGrupo = (event: any) => {
-    setGrupo(event.target.value);
+    setGrupo(event.target.value.split(",")[0]);
+    setDt(event.target.value.split(",")[1]);
+
     // setChecked([]);
     var inputs = document.querySelectorAll("[id=done]");
     for (var i = 0; i < inputs.length; i++) {
@@ -223,7 +238,57 @@ export default function Treino() {
               </div>
             </>
           )} */}
-          {ultimosTreinos && (
+          <div className="">
+            {ultimos && (
+              <>
+                <h2 className="  text-stone-500   rounded-md font-semibold  text-center text-lg m-2">
+                  Treinos Planejados / Feitos
+                </h2>
+                <div className="text-stone-600 place-content-center gap-2  mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
+                  {ultimosPlan.map((u: any, index) => (
+                    <div key={index} className="border rounded-md">
+                      <div className=" text-center">
+                        <div className="bg-stone-200">{u.data}</div>
+                        <div className="  py-1  text-center">
+                          {u.treino.map((t: any, index: any) => (
+                            <>
+                              {/* <div
+                                className={
+                                  t.feito
+                                    ? " text-green-600 text-center p-0.5 flex items-center  place-content-between "
+                                    : " text-stone-600 text-center p-0.5 flex items-center place-content-between"
+                                }></div> */}
+                              <div className="text-center p-0.5 flex items-center  place-content-between">
+                                <button
+                                  onClick={handleGrupo}
+                                  value={[t.treino, t.dt]}
+                                  key={index}>
+                                  {t.treino}
+                                </button>
+
+                                {t.feito ? (
+                                  <span className="inline-flex items-center justify-center px-1.5 py-1 mr-2 text-xs leading-none text-white  bg-teal-400 rounded-full">
+                                    feito
+                                  </span>
+                                ) : (
+                                  // <FiCheckCircle className="shrink-0 h-4 w-4" />
+                                  // <FiXCircle className="shrink-0 h-4 w-4" />
+                                  <span className="inline-flex items-center justify-center px-1.5 py-1 mr-2 text-xs leading-none text-white  bg-orange-400 rounded-full">
+                                    fazer
+                                  </span>
+                                )}
+                              </div>
+                            </>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+          {/* {ultimosTreinos && (
             <>
               <h2 className="  text-blue-600 rounded-md  text-md mt-4">
                 ÚLTIMOS TREINOS
@@ -243,7 +308,7 @@ export default function Treino() {
                 ))}
               </div>
             </>
-          )}
+          )} */}
         </div>
 
         {/* //TIPO DE TREINO */}
@@ -343,7 +408,7 @@ export default function Treino() {
           </div>
         </div> */}
 
-        <div className=" max-w-lg flex mx-auto ">
+        <div className=" max-w-lg mt-2 flex mx-auto ">
           <select
             className="form-select block  justify-center w-full px-3 py-1.5 font-light text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
             aria-label="Selecione o treino"
@@ -363,6 +428,7 @@ export default function Treino() {
         {grupo && (
           <Form method="post">
             <input readOnly hidden type="text" name="treino" value={grupo} />
+            <input readOnly hidden type="text" name="data" value={dt} />
             <input
               hidden
               type="number"

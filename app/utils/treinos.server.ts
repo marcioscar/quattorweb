@@ -112,8 +112,61 @@ export const updateTreino = async (treino: any) => {
 export const treinos = {
   grupos: [
     {
+      value: "ABDOME",
+      label: "Abdome",
+    },
+    {
+      value: "BICEPS",
+      label: "Biceps",
+    },
+    {
+      value: "COSTAS",
+      label: "Costas",
+    },
+    {
+      value: "GLUTEOS",
+      label: "Gluteos",
+    },
+    {
+      value: "MEMBROS INFERIORES GERAL",
+      label: "Membros Inferiores Geral",
+    },
+    {
+      value: "MEMBROS SUPERIORES GERAL",
+      label: "Membros Superiores Geral",
+    },
+    {
+      value: "MEMBROS SUPERIORES 1",
+      label: "Membros Superiores 1",
+    },
+    {
+      value: "MEMBROS SUPERIORES 2",
+      label: "Membros Superiores 2",
+    },
+    {
+      value: "OMBROS",
+      label: "Ombros",
+    },
+    {
       value: "PANTURRILHA",
       label: "Panturrilha",
+    },
+    {
+      value: "PEITORAL",
+      label: "Peitoral",
+    },
+    {
+      value: "POSTERIORES DE COXAS",
+      label: "Posteriores de Coxas",
+    },
+
+    {
+      value: "QUADS",
+      label: "Quads",
+    },
+    {
+      value: "TRICEPS",
+      label: "Triceps",
     },
   ],
 };

@@ -7,15 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type HistoricoTreinos {
-  data   DateTime @db.Date
-  treino String?
-}
 
-type Planejados {
-  data  DateTime @db.Date
-  treinoP String? 
-}
 
 type TreinosExercicios {
   Repeticoes String
@@ -26,6 +18,16 @@ type TreinosExercicios {
   video      String?
 }
 
+type HistoricoTreinos {
+  data   DateTime @db.Date
+  treino String?
+}
+
+type Planejados {
+  data  DateTime @db.Date
+  treinoP String? 
+  feito Boolean?
+}
 model historico {
   id      String             @id @default(auto()) @map("_id") @db.ObjectId
   aluno   Int                @unique
