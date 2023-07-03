@@ -87,7 +87,7 @@ export default function Treino() {
   });
 
   const PlaneTreino = _.mapValues(
-    _.orderBy(historicoTreinos.planejados, ["data", "asc"]),
+    _.orderBy(historicoTreinos?.planejados, ["data", "asc"]),
     function (o) {
       const dt = o.data;
       const feito = o.feito;
