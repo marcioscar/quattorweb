@@ -20,6 +20,7 @@ import {
   FaExclamationCircle,
 } from "react-icons/fa";
 import { FiVideo } from "react-icons/fi";
+import { TbHandClick } from "react-icons/tb";
 import { commitSession, getSession } from "~/session.server";
 
 type grupo = {
@@ -241,11 +242,17 @@ export default function Treino() {
           <div className="">
             {ultimos && (
               <>
-                <h2 className="  text-stone-500   rounded-md font-semibold  text-center text-lg m-2">
-                  Treinos Planejados / Feitos
-                </h2>
+                <div>
+                  <h2 className="  text-stone-500 font-medium mb-2 text-center mt-2">
+                    Treinos Planejados - Feitos
+                  </h2>
+                  <div className=" bg-teal-100  rounded-md mb-2 items-center place-content-center gap-2 text-center flex text-stone-600 font-light ">
+                    <TbHandClick className="text-stone-600 text-xl" />
+                    <div>no treino para ver os exercícios</div>
+                  </div>
+                </div>
                 <div className="text-stone-600 place-content-center gap-2  mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
-                  {ultimosPlan.map((u: any, index) => (
+                  {ultimosPlan.map((u: any, index: any) => (
                     <div key={index} className="border rounded-md">
                       <div className=" text-center">
                         <div className="bg-stone-200">{u.data}</div>
