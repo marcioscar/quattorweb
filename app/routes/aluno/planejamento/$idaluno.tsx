@@ -67,7 +67,7 @@ export default function Idaluno() {
   // );
 
   const PlaneTreino = _.mapValues(
-    _.orderBy(historico.planejados, ["data", "asc"]),
+    _.orderBy(historico?.planejados, ["data", "asc"]),
     function (o) {
       const dt = o.data;
       const feito = o.feito;
