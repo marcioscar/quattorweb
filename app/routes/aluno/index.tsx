@@ -3,10 +3,10 @@ import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, useLoaderData, useTransition } from "@remix-run/react";
 import {
-  TreinoPlanejadoFeito,
   getAluno,
   getHistorico,
   getTreinos,
+  updateHistorico,
 } from "../../utils/aluno.server";
 import { getWeek } from "date-fns";
 import format from "date-fns/format";
@@ -22,6 +22,12 @@ import {
 import { FiVideo } from "react-icons/fi";
 import { TbHandClick } from "react-icons/tb";
 import { commitSession, getSession } from "~/session.server";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 type grupo = {
   grupo: string;
@@ -56,7 +62,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   let values = Object.fromEntries(form);
-  const test = await TreinoPlanejadoFeito(values);
+  const test = await updateHistorico(values);
 
   return redirect(`/aluno`);
 };
@@ -86,17 +92,25 @@ export default function Treino() {
     return { data: idx, treino: data };
   });
 
-  const PlaneTreino = _.mapValues(
-    _.orderBy(historicoTreinos?.planejados, ["data", "asc"]),
-    function (o) {
-      const dt = o.data;
-      const feito = o.feito;
-      const data = format(new Date(o.data), "EEEEEE - dd/MM", {
-        locale: ptBR,
-      });
-      return { treino: o.treinoP, data, dt, feito };
-    }
-  );
+  // const PlaneTreino = _.mapValues(
+  //   _.orderBy(historicoTreinos?.planejados, ["data", "asc"]),
+  //   function (o) {
+  //     const dt = o.data;
+  //     const feito = o.feito;
+  //     const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+  //       locale: ptBR,
+  //     });
+  //     return { treino: o.treinoP, data, dt, feito };
+  //   }
+  // );
+
+  const PlaneTreino = _.mapValues(historicoTreinos?.planejados, function (o) {
+    return { treino: o.treinoP, dia: o.dia };
+  });
+
+  const plano = _.map(PlaneTreino, (treino: any) => {
+    return treino;
+  });
 
   const grupotreinoPlan = _.map(
     _.groupBy(PlaneTreino, "data"),
@@ -116,7 +130,6 @@ export default function Treino() {
   const ultimos = _.takeRight(grupotreino, 3);
 
   const ultimosTreinos = _.takeRight(historicoTreinos?.treinos, 3);
-  // console.log(historicoTreinos.treinos);
 
   const handleGrupo = (event: any) => {
     setGrupo(event.target.value.split(",")[0]);
@@ -240,64 +253,152 @@ export default function Treino() {
             </>
           )} */}
           <div className="">
-            {ultimos && (
+            {plano && (
               <>
+                <div className=" bg-teal-100  rounded-md mb-2 items-center place-content-center gap-2 text-center flex text-stone-600 font-light ">
+                  <TbHandClick className="text-stone-600 text-xl" />
+                  <div>no treino para ver os exercícios</div>
+                </div>
                 <div>
                   <h2 className="  text-stone-500 font-medium mb-2 text-center mt-2">
-                    Treinos Planejados - Feitos
+                    Treinos Planejados
                   </h2>
-                  <div className=" bg-teal-100  rounded-md mb-2 items-center place-content-center gap-2 text-center flex text-stone-600 font-light ">
-                    <TbHandClick className="text-stone-600 text-xl" />
-                    <div>no treino para ver os exercícios</div>
-                  </div>
                 </div>
-                <div className="text-stone-600 place-content-center gap-2  mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
-                  {ultimosPlan?.map((u: any, index: any) => (
-                    <div key={index} className="border rounded-md">
-                      <div className=" text-center">
-                        <div className="bg-stone-200">{u.data}</div>
-                        <div className="  py-1  text-center">
-                          {u.treino.map((t: any, index: any) => (
-                            <>
-                              {/* <div
-                                className={
-                                  t.feito
-                                    ? " text-green-600 text-center p-0.5 flex items-center  place-content-between "
-                                    : " text-stone-600 text-center p-0.5 flex items-center place-content-between"
-                                }></div> */}
-                              <div className="text-center p-0.5 flex items-center  place-content-between">
-                                <button
-                                  onClick={handleGrupo}
-                                  value={[t.treino, t.dt]}
-                                  key={index}>
-                                  {t.treino}
-                                </button>
 
-                                {t.feito ? (
-                                  <span className="inline-flex items-center justify-center px-1.5 py-1 mr-2 text-xs leading-none text-white  bg-teal-400 rounded-full">
-                                    feito
-                                  </span>
-                                ) : (
-                                  // <FiCheckCircle className="shrink-0 h-4 w-4" />
-                                  // <FiXCircle className="shrink-0 h-4 w-4" />
-                                  <span className="inline-flex items-center justify-center px-1.5 py-1 mr-2 text-xs leading-none text-white  bg-orange-400 rounded-full">
-                                    fazer
-                                  </span>
-                                )}
-                              </div>
-                            </>
+                <div className="text-stone-600 text-center place-content-center gap-2  mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Segunda</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("segunda"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
                           ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Terça</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("terca"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card className="">
+                    <CardHeader>
+                      <CardTitle>Quarta</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("quarta"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card className="">
+                    <CardHeader>
+                      <CardTitle>Quinta</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("quinta"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card className="">
+                    <CardHeader>
+                      <CardTitle>Sexta</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("sexta"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card className="">
+                    <CardHeader>
+                      <CardTitle>Sábado</CardTitle>
+                      <CardDescription className=" ">
+                        {plano
+                          .filter((o) => o.dia?.includes("sabado"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                  <Card className="">
+                    <CardHeader>
+                      <CardTitle>Domingo</CardTitle>
+                      <CardDescription>
+                        {plano
+                          .filter((o) => o.dia?.includes("domingo"))
+                          .map((s, index) => (
+                            <button
+                              key={index}
+                              value={s.treino}
+                              onClick={handleGrupo}
+                              name="treino">
+                              {s.treino}
+                            </button>
+                          ))}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
                 </div>
               </>
             )}
           </div>
-          {/* {ultimosTreinos && (
+          {ultimosTreinos.length > 0 && (
             <>
-              <h2 className="  text-blue-600 rounded-md  text-md mt-4">
+              <h2 className="  text-stone-500 font-medium mb-1 text-center mt-2">
                 ÚLTIMOS TREINOS
               </h2>
               <div className="text-gray-500 grid  gap-2 grid-cols-3">
@@ -305,7 +406,7 @@ export default function Treino() {
                   <div key={index} className="">
                     <div className="mt-1 mb-4  py-2 px-2 rounded-md my-4">
                       <div>{u.data}</div>
-                      <div className="font-semibold text-blue-600">
+                      <div className="font-semibold text-teal-600">
                         {u.treino.map((t: any, index: any) => (
                           <div key={index}>{t.treino}</div>
                         ))}
@@ -315,7 +416,7 @@ export default function Treino() {
                 ))}
               </div>
             </>
-          )} */}
+          )}
         </div>
 
         {/* //TIPO DE TREINO */}

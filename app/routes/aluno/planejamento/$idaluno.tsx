@@ -1,5 +1,5 @@
 import {
-  deleteTreinoPlanejado,
+  deleteTreinoPlanejadoDia,
   getAluno,
   getHistorico,
   updateFicha,
@@ -14,13 +14,16 @@ import {
   useTransition,
 } from "@remix-run/react";
 import _ from "lodash";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillEdit } from "react-icons/ai";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ptBR } from "date-fns/locale";
-import { format } from "date-fns";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -28,12 +31,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const aluno = await getAluno(Number(params.idaluno));
   const historico = await getHistorico(Number(params.idaluno));
-
   return json({ aluno, historico });
 };
 
@@ -42,7 +43,8 @@ export const action: ActionFunction = async ({ request }) => {
   let values = Object.fromEntries(form);
   const _action = form.get("_action");
   if (_action === "delete") {
-    await deleteTreinoPlanejado(values);
+    //  await deleteTreinoPlanejado(values);
+    await deleteTreinoPlanejadoDia(values);
   }
   if (_action === "salvar") {
     await updateFicha(values);
@@ -66,17 +68,27 @@ export default function Idaluno() {
   //   }
   // );
 
-  const PlaneTreino = _.mapValues(
-    _.orderBy(historico?.planejados, ["data", "asc"]),
-    function (o) {
-      const dt = o.data;
-      const feito = o.feito;
-      const data = format(new Date(o.data), "EEEEEE - dd/MM", {
-        locale: ptBR,
-      });
-      return { treino: o.treinoP, data, dt, feito };
-    }
-  );
+  // const PlaneTreino = _.mapValues(
+  //   _.orderBy(historico?.planejados, ["data", "asc"]),
+  //   function (o) {
+  //     const dt = o.data;
+  //     const feito = o.feito;
+  //     const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+  //       locale: ptBR,
+  //     });
+  //     return { treino: o.treinoP, data, dt, feito };
+  //   }
+  // );
+
+  const PlaneTreino = _.mapValues(historico?.planejados, function (o) {
+    return { treino: o.treinoP, dia: o.dia, id: o.id };
+  });
+
+  const plano = _.map(PlaneTreino, (treino: any) => {
+    return treino;
+  });
+
+  // console.log(PlaneTreino.filter)
 
   // const grupotreino = _.map(
   //   _.groupBy(PlaneTreino, "data"),
@@ -87,7 +99,7 @@ export default function Idaluno() {
 
   const grupotreino = _.map(
     _.groupBy(PlaneTreino, "data"),
-    (data, idx, dt, feito) => {
+    (data: any, idx: any, dt: any, feito: any) => {
       return { data: idx, treino: data, dt: dt, feito: feito };
     }
   );
@@ -190,14 +202,309 @@ export default function Idaluno() {
         </Card>
       </Form>
       <div className="w-full  ">
-        <div className="">
+        <div>
           {ultimos && (
             <>
               <h2 className="   text-stone-600 rounded-md font-semibold  text-center text-lg m-4">
                 Treinos Planejados
               </h2>
-              <div className="text-stone-600 place-content-center gap-2 container mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
-                {ultimos.map((u: any, index) => (
+              <div className="text-stone-600 text-center place-content-center gap-2 container mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Segunda</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("segunda"))
+                        .map((s, index) => (
+                          <div key={index} className="">
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="segunda"
+                              />
+                              <Link to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Terça</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("terca"))
+                        .map((s, index) => (
+                          <div key={index} className="">
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="terca"
+                              />
+                              <Link to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="">
+                  <CardHeader>
+                    <CardTitle>Quarta</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("quarta"))
+                        .map((s, index) => (
+                          <div key={index} className="">
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="quarta"
+                              />
+                              <Link to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="">
+                  <CardHeader>
+                    <CardTitle>Quinta</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("quinta"))
+                        .map((s, index) => (
+                          <div key={index} className="">
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="quinta"
+                              />
+                              <Link to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="">
+                  <CardHeader>
+                    <CardTitle>Sexta</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("sexta"))
+                        .map((s, index) => (
+                          <div key={index}>
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="sexta"
+                              />
+                              <Link to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="">
+                  <CardHeader>
+                    <CardTitle>Sábado</CardTitle>
+                    <CardDescription className=" ">
+                      {plano
+                        .filter((o) => o.dia?.includes("sabado"))
+                        .map((s, index) => (
+                          <div key={index}>
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="sabado"
+                              />
+                              <Link
+                                // className="bg-green-400 mt-3 w-1/2 container md:w-1/4 rounded-lg text-center block mb-24 p-2"
+                                to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+                <Card className="">
+                  <CardHeader>
+                    <CardTitle>Domingo</CardTitle>
+                    <CardDescription>
+                      {plano
+                        .filter((o) => o.dia?.includes("domingo"))
+                        .map((s, index) => (
+                          <div key={index} className="">
+                            <Form
+                              method="post"
+                              className="flex  place-content-between items-center">
+                              {s.treino}
+                              <input
+                                type="text"
+                                value={s.treino}
+                                hidden
+                                name="treino"
+                                readOnly
+                              />
+                              <input
+                                hidden
+                                type="number"
+                                name="aluno"
+                                readOnly
+                                defaultValue={aluno.idMember}
+                              />
+                              <input
+                                type="text"
+                                hidden
+                                name="dia"
+                                defaultValue="domingo"
+                              />
+                              <Link
+                                // className="bg-green-400 mt-3 w-1/2 container md:w-1/4 rounded-lg text-center block mb-24 p-2"
+                                to={s.id}>
+                                <AiFillEdit className="w-5 h-5  text-teal-500" />
+                              </Link>
+                              {/* <button name="_action" value="delete">
+                                <AiFillCloseCircle className="w-5 h-5  text-red-500" />
+                              </button> */}
+                            </Form>
+                          </div>
+                        ))}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+
+                {/* {ultimos.map((u: any, index) => (
                   <div key={index} className="border rounded-md">
                     <div className=" text-center">
                       <div className="bg-stone-200">{u.data}</div>
@@ -248,7 +555,7 @@ export default function Idaluno() {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
               </div>
             </>
           )}

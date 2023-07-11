@@ -13,6 +13,7 @@ export default function Aulas(props: any) {
   if (now.getHours() >= 10) {
     horaCerta = now.getHours();
   }
+
   const hourFilter = aulas.filter(
     (classes: any) =>
       classes.start >= horaCerta.toString() &&
@@ -74,8 +75,7 @@ export default function Aulas(props: any) {
                         <tr key={aula.id} className=" dark:bg-gray-800">
                           <th
                             scope="row"
-                            className="py-2 px-2 flex gap-x-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
+                            className="py-2 px-2 flex gap-x-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <img
                               className="avatar h-6 w-6 rounded-full "
                               src={aula.icon}
@@ -133,8 +133,7 @@ export default function Aulas(props: any) {
                     <tr key={aula.id} className=" dark:bg-gray-800">
                       <th
                         scope="row"
-                        className="py-2 px-6 flex gap-x-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
+                        className="py-2 px-6 flex gap-x-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <img
                           className="avatar h-6 w-6  rounded-full "
                           src={aula.icon}

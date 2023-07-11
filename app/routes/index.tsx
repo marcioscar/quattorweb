@@ -21,7 +21,7 @@ export default function Index() {
           <img
             src="/back_cinza.svg"
             alt="background"
-            className="hidden  md:block w-full h-full "
+            className="hidden   w-full h-full "
           />
         </div>
         <div className="flex flex-col items-center md:-mt-44 -mt-32">

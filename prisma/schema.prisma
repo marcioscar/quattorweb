@@ -24,9 +24,11 @@ type HistoricoTreinos {
 }
 
 type Planejados {
-  data  DateTime @db.Date
+  data  DateTime? @db.Date
   treinoP String? 
   feito Boolean?
+  dia String[]
+  id String?
 }
 model historico {
   id      String             @id @default(auto()) @map("_id") @db.ObjectId

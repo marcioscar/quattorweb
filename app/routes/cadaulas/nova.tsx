@@ -54,7 +54,7 @@ export default function Nova() {
         </h2>
         <Form method="post" className="rounded-2xl bg-stone-100 p-6 w-5/4">
           <label htmlFor="conta" className="text-blue-600 font-semibold">
-            AUla
+            Aula
           </label>
           <input
             type="text"

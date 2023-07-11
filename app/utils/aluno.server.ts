@@ -3,6 +3,7 @@ import { endOfDay, format, parse } from "date-fns";
 import { prisma } from "./prisma.server";
 import fetch from "@remix-run/web-fetch";
 import ptBR from "date-fns/locale/pt-BR";
+import { v4 as uuidv4 } from "uuid";
 
 const EVO_AUTH = process.env.NEXT_PUBLIC_EVO_AUTH;
 
@@ -98,7 +99,7 @@ export const updateHistorico = async (historico: any) => {
   });
 };
 
-export const updatePlanejamento = async (historico: any) => {
+export const updatePlanejamento = async (historico: any, dias: any) => {
   const treino = historico.treinolivre
     ? historico.treinolivre.toUpperCase()
     : historico.treino.toUpperCase();
@@ -111,7 +112,8 @@ export const updatePlanejamento = async (historico: any) => {
       planejados: {
         push: {
           treinoP: treino,
-          data: new Date(Date.parse(historico.data)),
+          dia: dias,
+          id: uuidv4(),
           feito: false,
         },
       },
@@ -120,7 +122,9 @@ export const updatePlanejamento = async (historico: any) => {
       aluno: parseInt(historico.aluno),
       planejados: {
         treinoP: treino,
-        data: new Date(Date.parse(historico.data)),
+        dia: dias,
+        id: uuidv4(),
+        // data: new Date(Date.parse(historico.data)),
         feito: false,
       },
     },
@@ -193,19 +197,19 @@ export const TreinoPlanejadoFeito = async (treino: any) => {
     });
   }
 };
-export const updatePlanejamentoTreino1 = async (historico: any) => {
+export const updatePlanejamentoTreino1 = async (historico: any, dias: any) => {
   const dataformatada = format(
     endOfDay(new Date()),
     "yyyy-MM-dd'T'03:00:00.000+00:00"
   );
-  console.log(dataformatada);
-  const his = prisma.historico.updateMany({
+
+  const his = prisma.historico.update({
     where: {
       AND: [
         { aluno: parseInt(historico.aluno) },
         {
           planejados: {
-            some: { treinoP: historico.treino, data: dataformatada },
+            some: { id: historico.id },
           },
         },
       ],
@@ -213,9 +217,7 @@ export const updatePlanejamentoTreino1 = async (historico: any) => {
     data: {
       planejados: {
         set: {
-          feito: true,
-          treinoP: historico.treino,
-          data: dataformatada,
+          dia: dias,
         },
       },
     },
@@ -224,49 +226,24 @@ export const updatePlanejamentoTreino1 = async (historico: any) => {
   return his;
 };
 
-export const updatePlanejamentoTreino = async (historico: any) => {
-  console.log(historico);
-  const treino = historico.treinolivre
-    ? historico.treinolivre.toUpperCase()
-    : historico.treino.toUpperCase();
+export const updatePlanejamentoTreino = async (treino: any, dias: any) => {
+  console.log(treino);
 
-  return prisma.historico.upsert({
-    select: {
-      planejados: {
-        select: {
-          treinoP: treino,
-          data: new Date(),
-        },
-      },
-    },
-
+  return prisma.historico.update({
     where: {
-      aluno: parseInt(historico.aluno),
+      aluno: parseInt(treino.aluno),
     },
-    // where: {
-    //   aluno_treino: {
-    //     aluno: historico.aluno,
-    //     planejados: {
-    //       treinoP: treino,
-    //       data: new Date(),
-    //     },
-    //   },
-    // },
 
-    update: {
+    data: {
       planejados: {
-        set: {
-          feito: true,
-          data: new Date(),
+        updateMany: {
+          where: {
+            id: treino.id,
+          },
+          data: {
+            dia: dias,
+          },
         },
-      },
-    },
-    create: {
-      aluno: parseInt(historico.aluno),
-      planejados: {
-        treinoP: treino,
-        data: new Date(),
-        feito: true,
       },
     },
   });
@@ -310,11 +287,28 @@ export const deleteTreinoPlanejado = async (treino: any) => {
       planejados: {
         deleteMany: {
           where: {
-            treinoP: treino.treino,
-            data: new Date(Date.parse(treino.data)),
+            id: treino.id,
           },
         },
       },
     },
   });
+};
+export const deleteTreinoPlanejadoDia = async (treino: any) => {
+  const tre = prisma.historico.update({
+    where: {
+      aluno: parseInt(treino.aluno),
+    },
+    data: {
+      planejados: {
+        updateMany: {
+          where: {
+            treinoP: treino.treino,
+          },
+          data: { dia: "" },
+        },
+      },
+    },
+  });
+  return tre;
 };

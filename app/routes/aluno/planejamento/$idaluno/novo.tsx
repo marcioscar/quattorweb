@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/command";
 import { treinos } from "@/utils/treinos.server";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const grupos = treinos;
@@ -40,12 +41,37 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   let values = Object.fromEntries(form);
-  const planejado = await updatePlanejamento(values);
+  var dias = [];
+
+  if (values.segunda) {
+    dias.push("segunda");
+  }
+  if (values.terca) {
+    dias.push("terca");
+  }
+  if (values.quarta) {
+    dias.push("quarta");
+  }
+  if (values.quinta) {
+    dias.push("quinta");
+  }
+  if (values.sexta) {
+    dias.push("sexta");
+  }
+  if (values.sabado) {
+    dias.push("sabado");
+  }
+  if (values.domingo) {
+    dias.push("domingo");
+  }
+
+  const planejado = await updatePlanejamento(values, dias);
 
   return redirect(`..`);
 };
-export default function Maquina() {
+export default function Novo() {
   const { grupos } = useLoaderData();
+  console.log(grupos);
   const { aluno } = useRouteLoaderData("routes/aluno/planejamento/$idaluno");
 
   const [open, setOpen] = useState(false);
@@ -65,7 +91,6 @@ export default function Maquina() {
         <div className=" md:col-span-2 text-center mb-4">
           Planejamento de treino - {aluno.firstName}{" "}
         </div>
-
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -114,10 +139,17 @@ export default function Maquina() {
           </PopoverContent>
         </Popover>
         <div className=" text-left">
-          <input hidden required value={date} id="data" name="data" />
+          {/* <input hidden required value={date} id="data" name="data" /> */}
           <input hidden value={aluno.idMember} id="aluno" name="aluno" />
           <input hidden value={treino} name="treino" id="treino"></input>
-          <Popover>
+          <Input
+            className="md:col-span-2"
+            type="text"
+            id="treinolivre"
+            name="treinolivre"
+            placeholder="Treino Livre"
+          />
+          {/* <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
@@ -141,15 +173,52 @@ export default function Maquina() {
                 initialFocus
               />
             </PopoverContent>
-          </Popover>
+          </Popover> */}
         </div>
-        <Input
-          className="md:col-span-2"
-          type="text"
-          id="treinolivre"
-          name="treinolivre"
-          placeholder="Treino"
-        />
+        <div className="flex items-center ">
+          <Checkbox id="segunda" name="segunda" className="mr-1" />
+          <label
+            htmlFor="segunda"
+            className="text-sm  mr-7  text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Segunda
+          </label>
+          <Checkbox id="terca" name="terca" className="mr-1" />
+          <label
+            htmlFor="terca"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Terça
+          </label>
+          <Checkbox id="quarta" name="quarta" className="mr-1" />
+          <label
+            htmlFor="quarta"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Quarta
+          </label>
+          <Checkbox id="quinta" name="quinta" className="mr-1" />
+          <label
+            htmlFor="quinta"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Quinta
+          </label>
+          <Checkbox id="sexta" name="sexta" className="mr-1" />
+          <label
+            htmlFor="sexta"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Sexta
+          </label>
+          <Checkbox id="sabado" name="sabado" className="mr-1" />
+          <label
+            htmlFor="sabado"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Sábado
+          </label>
+          <Checkbox id="domingo" name="domingo" className="mr-1" />
+          <label
+            htmlFor="domingo"
+            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Domingo
+          </label>
+        </div>
 
         <Button
           variant="secondary"
