@@ -134,6 +134,7 @@ export default function Idaluno() {
                       membershipStatus: "active",
                     }).map((n) => n.name)}
                   </p>
+                  <p>Matrícula - {aluno.idMember}</p>
                 </div>
               </div>
               {/* <div className="font-medium flex justify-self-end   text-green-600"> */}
