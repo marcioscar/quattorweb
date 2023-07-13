@@ -273,13 +273,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("segunda"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -287,17 +289,18 @@ export default function Treino() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Terça</CardTitle>
-                      <CardDescription>
+                      <CardDescription className="">
                         {plano
                           .filter((o) => o.dia?.includes("terca"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -309,13 +312,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("quarta"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -327,13 +332,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("quinta"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -345,13 +352,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("sexta"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -363,13 +372,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("sabado"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
@@ -381,13 +392,15 @@ export default function Treino() {
                         {plano
                           .filter((o) => o.dia?.includes("domingo"))
                           .map((s, index) => (
-                            <button
-                              key={index}
-                              value={s.treino}
-                              onClick={handleGrupo}
-                              name="treino">
-                              {s.treino}
-                            </button>
+                            <div key={index}>
+                              <button
+                                key={index}
+                                value={s.treino}
+                                onClick={handleGrupo}
+                                name="treino">
+                                {s.treino}
+                              </button>
+                            </div>
                           ))}
                       </CardDescription>
                     </CardHeader>
