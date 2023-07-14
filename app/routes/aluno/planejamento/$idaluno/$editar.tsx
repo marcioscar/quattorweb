@@ -98,110 +98,125 @@ export default function Editar() {
         />
         <div className=" text-center mb-4">Ediçao do treino</div>
         <div className="text-center mb-5">{treinoP.map((t) => t.treino)}</div>
-        <div className="flex items-center mb-4 ">
-          <Checkbox
-            id="segunda"
-            name="segunda"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("segunda")).length > 0
-            }
-          />
-          <label
-            htmlFor="segunda"
-            className="text-sm  mr-7  text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Segunda
-          </label>
-          <Checkbox
-            id="terca"
-            name="terca"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("terca")).length > 0
-            }
-          />
-          <label
-            htmlFor="terca"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Terça
-          </label>
-          <Checkbox
-            id="quarta"
-            name="quarta"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("quarta")).length > 0
-            }
-          />
-          <label
-            htmlFor="quarta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Quarta
-          </label>
-          <Checkbox
-            id="quinta"
-            name="quinta"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("quinta")).length > 0
-            }
-          />
-          <label
-            htmlFor="quinta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Quinta
-          </label>
-          <Checkbox
-            id="sexta"
-            name="sexta"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("sexta")).length > 0
-            }
-          />
-          <label
-            htmlFor="sexta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Sexta
-          </label>
-          <Checkbox
-            id="sabado"
-            name="sabado"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("sabado")).length > 0
-            }
-          />
-          <label
-            htmlFor="sabado"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Sábado
-          </label>
-          <Checkbox
-            id="domingo"
-            name="domingo"
-            className="mr-1"
-            defaultChecked={
-              treinoP.filter((o) => o.dia?.includes("domingo")).length > 0
-            }
-          />
-          <label
-            htmlFor="domingo"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Domingo
-          </label>
+        {/* <div className="flex items-center mb-4 "> */}
+        <div className="grid grid-cols-3 md:flex items-center ">
+          <div className="md:flex">
+            <Checkbox
+              id="segunda"
+              name="segunda"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("segunda")).length > 0
+              }
+            />
+            <label
+              htmlFor="segunda"
+              className="text-sm  mr-7  text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Segunda
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="terca"
+              name="terca"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("terca")).length > 0
+              }
+            />
+            <label
+              htmlFor="terca"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Terça
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="quarta"
+              name="quarta"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("quarta")).length > 0
+              }
+            />
+            <label
+              htmlFor="quarta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Quarta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="quinta"
+              name="quinta"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("quinta")).length > 0
+              }
+            />
+            <label
+              htmlFor="quinta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Quinta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="sexta"
+              name="sexta"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("sexta")).length > 0
+              }
+            />
+            <label
+              htmlFor="sexta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Sexta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="sabado"
+              name="sabado"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("sabado")).length > 0
+              }
+            />
+            <label
+              htmlFor="sabado"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Sábado
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox
+              id="domingo"
+              name="domingo"
+              className="mr-1"
+              defaultChecked={
+                treinoP.filter((o) => o.dia?.includes("domingo")).length > 0
+              }
+            />
+            <label
+              htmlFor="domingo"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Domingo
+            </label>
+          </div>
         </div>
-        <div className="flex space-x-4">
+        <div className="flex mt-4 space-x-4">
           <Button
             variant="secondary"
-            className="bg-green-400  w-full text-black "
+            className="bg-stone-300  w-full text-black "
             name="_action"
             value="salvar">
             Salvar
           </Button>
           <Button
             variant="secondary"
-            className="bg-red-600  w-full text-black "
+            className="bg-red-600 text-white  w-full "
             name="_action"
             value="apagar">
             Apagar

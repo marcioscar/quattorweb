@@ -71,7 +71,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 export default function Novo() {
   const { grupos } = useLoaderData();
-  console.log(grupos);
+
   const { aluno } = useRouteLoaderData("routes/aluno/planejamento/$idaluno");
 
   const [open, setOpen] = useState(false);
@@ -97,7 +97,7 @@ export default function Novo() {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[300px] text-stone-500 justify-between">
+              className=" text-stone-500 justify-between">
               {treino.toUpperCase()
                 ? grupos.find(
                     (grupo: any) =>
@@ -175,49 +175,63 @@ export default function Novo() {
             </PopoverContent>
           </Popover> */}
         </div>
-        <div className="flex items-center ">
-          <Checkbox id="segunda" name="segunda" className="mr-1" />
-          <label
-            htmlFor="segunda"
-            className="text-sm  mr-7  text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Segunda
-          </label>
-          <Checkbox id="terca" name="terca" className="mr-1" />
-          <label
-            htmlFor="terca"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Terça
-          </label>
-          <Checkbox id="quarta" name="quarta" className="mr-1" />
-          <label
-            htmlFor="quarta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Quarta
-          </label>
-          <Checkbox id="quinta" name="quinta" className="mr-1" />
-          <label
-            htmlFor="quinta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Quinta
-          </label>
-          <Checkbox id="sexta" name="sexta" className="mr-1" />
-          <label
-            htmlFor="sexta"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Sexta
-          </label>
-          <Checkbox id="sabado" name="sabado" className="mr-1" />
-          <label
-            htmlFor="sabado"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Sábado
-          </label>
-          <Checkbox id="domingo" name="domingo" className="mr-1" />
-          <label
-            htmlFor="domingo"
-            className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Domingo
-          </label>
+        <div className="grid grid-cols-3 md:flex items-center ">
+          <div className="md:flex">
+            <Checkbox id="segunda" name="segunda" className="mr-1" />
+            <label
+              htmlFor="segunda"
+              className="text-sm  mr-7  text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Segunda
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="terca" name="terca" className="mr-1" />
+            <label
+              htmlFor="terca"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Terça
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="quarta" name="quarta" className="mr-1" />
+            <label
+              htmlFor="quarta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Quarta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="quinta" name="quinta" className="mr-1" />
+            <label
+              htmlFor="quinta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Quinta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="sexta" name="sexta" className="mr-1" />
+            <label
+              htmlFor="sexta"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Sexta
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="sabado" name="sabado" className="mr-1" />
+            <label
+              htmlFor="sabado"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Sábado
+            </label>
+          </div>
+          <div className="md:flex">
+            <Checkbox id="domingo" name="domingo" className="mr-1" />
+            <label
+              htmlFor="domingo"
+              className="text-sm mr-7 text-stone-700  peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Domingo
+            </label>
+          </div>
         </div>
 
         <Button
