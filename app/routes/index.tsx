@@ -137,17 +137,13 @@ export default function Index() {
       </section> */}
       <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
         <div className="mx-2 mt-5">
-          <img
-            className="rounded-lg bg-cover"
-            src="/foto_brinquedoteca.jpg"
-            alt=""
-          />
+          <img className="rounded-lg bg-cover" src="/amigo.jpg" alt="" />
           <div className="flex flex-row justify-between items-start mt-4">
-            <div>
+            {/* <div>
               <p className="text-lg font-bold text-red-400 ">Briquedoteca</p>
               <p className="text-gray-500 mb-4">Com Monitor </p>
-              {/* <p className="text-sm text-gray-800">Infantil</p> */}
-            </div>
+              
+            </div> */}
           </div>
         </div>
         <div className="mx-2 mt-5 hidden md:block">

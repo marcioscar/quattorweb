@@ -15,6 +15,8 @@ import { getAluno } from "~/utils/aluno.server";
 import _ from "lodash";
 import { ImEnter } from "react-icons/im";
 import { commitSession, getSession } from "~/session.server";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -129,7 +131,7 @@ export default function Index() {
                   className={
                     "" + transition.state === "loading"
                       ? "rounded-xl mt-2  bg-blue-600 px-3 py-2 text-white font-semibold"
-                      : "rounded-xl mt-2  bg-green-400 px-3 py-2  font-semibold hover:bg-orange-400 hover:-translate-y-1"
+                      : "rounded-xl mt-2  bg-stone-500 text-white px-3 py-2  font-semibold hover:bg-orange-400 hover:-translate-y-1"
                   }>
                   {transition.state === "submitting"
                     ? "Localizando..."
@@ -147,8 +149,12 @@ export default function Index() {
             )}
 
             {data && (
-              <p className="  text-center text-md text-white font-medium px-4 py-3 bg-red-600 rounded-lg">
-                {data.message}
+              <p className="  p-1 bg-white rounded-lg ">
+                <Alert variant="destructive">
+                  <ExclamationTriangleIcon className="h-4 w-4" />
+                  <AlertTitle>Sem treino </AlertTitle>
+                  <AlertDescription>{data.message}</AlertDescription>
+                </Alert>
               </p>
             )}
           </div>
