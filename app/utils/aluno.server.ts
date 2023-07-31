@@ -22,6 +22,30 @@ export const getAluno = async (matricula: number) => {
         },
       }
     );
+    // console.log(aluno.status);
+    // if (aluno.status === 400) {
+    //   throw "Aluno não Encontrado";
+    // }
+    return aluno.json();
+  } catch (error) {
+    throw error;
+  }
+};
+export const getAlunoGym = async (matricula: number) => {
+  if (!matricula) {
+    return null;
+  }
+  try {
+    const aluno = await fetch(
+      // `https://evo-integracao.w12app.com.br/api/v1/members/${matricula}`,
+      `https://evo-integracao.w12app.com.br/api/v1/members?take=50&skip=0&idsMembers=${matricula}&onlyPersonal=false&showActivityData=false`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Basic " + btoa(EVO_AUTH as string),
+        },
+      }
+    );
     // if (aluno.status === 400) {
     //   throw "Aluno não Encontrado";
     // }

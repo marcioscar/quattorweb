@@ -1,8 +1,4 @@
-import type {
-  LoaderArgs,
-  ActionFunction,
-  LoaderFunction,
-} from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import {
   Form,
@@ -11,12 +7,13 @@ import {
   useTransition,
 } from "@remix-run/react";
 
-import { getAluno } from "~/utils/aluno.server";
+import { getAluno, getAlunoGym } from "~/utils/aluno.server";
 import _ from "lodash";
 import { ImEnter } from "react-icons/im";
 import { commitSession, getSession } from "~/session.server";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { Toaster } from "@/components/ui/toaster";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -41,10 +38,16 @@ export const action: ActionFunction = async ({ request }) => {
   // @ts-ignore
   const aluno = await getAluno(matricula);
 
+  let alunoGym = [];
+  if (aluno.membershipStatus === "Inactive") {
+    const alunoGymtudo = await getAlunoGym(Number(matricula));
+    alunoGym = alunoGymtudo.map((a) => a.gympassId);
+  }
+
   const plano = _.filter(aluno.memberships, { membershipStatus: "active" }).map(
     (n) => n.name
   );
-
+  // console.log(plano);
   // const spinning = plano.filter(
   //   (s) =>
   //     s.includes("FITNESS") || s.includes("SPINNING") || s.includes("TOTAL")
@@ -58,7 +61,7 @@ export const action: ActionFunction = async ({ request }) => {
       message: "Aluno não encontrado",
     };
   }
-  if (aluno.membershipStatus === "Inactive") {
+  if (aluno.membershipStatus === "Inactive" && alunoGym[0] === null) {
     return {
       message: "Seu plano está Inativo Favor procurar recepção",
     };
@@ -93,10 +96,10 @@ export default function Index() {
     <div className="h-screen w-full bg-stone-100 font-Roboto ">
       <div className="bg-stone-400">
         <div className="text-gray-600 body-font  min-h-screen ">
-          <div className="h-full  pt-20 items-center flex flex-col gap-y-4">
+          <div className="h-full   pt-20 items-center flex flex-col gap-y-4">
             <Form
               method="post"
-              className="rounded-2xl bg-white bg-opacity-80  p-6 md:w-1/2 lg:w1/4 w-10/12">
+              className="rounded-2xl bg-white bg-opacity-80  p-4 md:w-1/2 lg:w1/4 w-11/12">
               <input
                 type="hidden"
                 value={motivo ? motivo : ""}
@@ -119,7 +122,7 @@ export default function Index() {
                   className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white  rounded-xl text-sm border shadow outline-none border-slate-200 focus:outline-none focus:ring w-full pl-10"
                 />
               </div>
-
+              <Toaster />
               <div className="w-full text-center">
                 <button
                   disabled={
@@ -139,6 +142,15 @@ export default function Index() {
                     ? "Carregando Aulas"
                     : "Entrar"}
                 </button>
+                {data && (
+                  <div className=" mt-3  p-1 bg-white rounded-lg ">
+                    <Alert variant="destructive">
+                      <ExclamationTriangleIcon className="h-4 w-4" />
+                      <AlertTitle>Sem treino </AlertTitle>
+                      <AlertDescription>{data.message}</AlertDescription>
+                    </Alert>
+                  </div>
+                )}
               </div>
             </Form>
 
@@ -148,15 +160,15 @@ export default function Index() {
               </p>
             )}
 
-            {data && (
-              <p className="  p-1 bg-white rounded-lg ">
+            {/* {data && (
+              <div className="  p-1 bg-white rounded-lg ">
                 <Alert variant="destructive">
                   <ExclamationTriangleIcon className="h-4 w-4" />
                   <AlertTitle>Sem treino </AlertTitle>
                   <AlertDescription>{data.message}</AlertDescription>
                 </Alert>
-              </p>
-            )}
+              </div>
+            )} */}
           </div>
         </div>
       </div>
