@@ -51,7 +51,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
-  const aluno = await getAluno(session.get("aluno").id);
+  const alunoa = await getAluno(session.get("aluno")?.id);
+  const aluno = alunoa[0];
+
   const treinosGrupo = await getTreinos(getWeek(new Date()));
 
   // const historicoTreinos = await getHistorico(4);
@@ -223,7 +225,7 @@ export default function Treino() {
       <div className=" px-2 mx-auto ">
         <div className="text-center">
           <img
-            src={aluno?.photo ? aluno?.photo : "/user.png"}
+            src={aluno?.photoUrl ? aluno?.photoUrl : "/user.png"}
             className="rounded-full shadow-lg w-24 h-24 m-4 mx-auto"
             alt="Avatar"
           />

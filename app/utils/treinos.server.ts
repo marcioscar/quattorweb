@@ -108,7 +108,30 @@ export const updateTreino = async (treino: any) => {
     },
   });
 };
-
+export const grupos = {
+  grupo: [
+    {
+      value: "GRUPO 1",
+      label: "Grupo 1",
+    },
+    {
+      value: "GRUPO 2",
+      label: "Grupo 2",
+    },
+    {
+      value: "GRUPO 3",
+      label: "Grupo 3",
+    },
+    {
+      value: "GRUPO 4",
+      label: "Grupo 4",
+    },
+    {
+      value: "GRUPO 5",
+      label: "Grupo 5",
+    },
+  ],
+};
 export const treinos = {
   grupos: [
     {

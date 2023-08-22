@@ -18,7 +18,7 @@ import {
 import stylesheet from "~/tailwind.css";
 import Nav from "./components/Nav";
 import { getSession } from "./session.server";
-import { getAluno } from "./utils/aluno.server";
+import { getAluno, getBasico } from "./utils/aluno.server";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -33,7 +33,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!session.get("aluno")?.id) {
     return null;
   }
-  const aluno = await getAluno(session.get("aluno")?.id);
+  const alunoa = await getAluno(session.get("aluno")?.id);
+  const aluno = alunoa[0];
   return json(aluno);
 };
 

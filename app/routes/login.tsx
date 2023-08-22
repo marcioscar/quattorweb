@@ -7,7 +7,7 @@ import {
   useTransition,
 } from "@remix-run/react";
 
-import { getAluno, getAlunoGym } from "~/utils/aluno.server";
+import { getAluno, getAlunoGym, getBasico } from "~/utils/aluno.server";
 import _ from "lodash";
 import { ImEnter } from "react-icons/im";
 import { commitSession, getSession } from "~/session.server";
@@ -36,8 +36,11 @@ export const action: ActionFunction = async ({ request }) => {
   const redi = form.get("redirectTo") || "..";
 
   // @ts-ignore
-  const aluno = await getAluno(matricula);
+  const alunoa = await getAluno(matricula);
+  const aluno = alunoa[0];
 
+  console.log(aluno);
+  // console.log(basic);
   let alunoGym = [];
   if (aluno.membershipStatus === "Inactive") {
     const alunoGymtudo = await getAlunoGym(Number(matricula));
@@ -47,7 +50,7 @@ export const action: ActionFunction = async ({ request }) => {
   const plano = _.filter(aluno.memberships, { membershipStatus: "active" }).map(
     (n) => n.name
   );
-  // console.log(plano);
+  console.log(plano);
   // const spinning = plano.filter(
   //   (s) =>
   //     s.includes("FITNESS") || s.includes("SPINNING") || s.includes("TOTAL")
@@ -72,7 +75,7 @@ export const action: ActionFunction = async ({ request }) => {
   //     message: "Plano do Aluno não inclui Spinning",
   //   };
   // }
-
+  console.log(aluno.membershipStatus, aluno.idMember, plano);
   const session = await getSession(request.headers.get("Cookie"));
   session.set("aluno", {
     id: aluno.idMember,

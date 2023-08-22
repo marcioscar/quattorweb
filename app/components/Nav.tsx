@@ -23,7 +23,9 @@ export default function Index(aluno: any) {
               <>
                 <div className="flex items-center space-x-1 md:ml-14">
                   <img
-                    src={aluno.aluno.photo ? aluno.aluno.photo : `/user.png`}
+                    src={
+                      aluno.aluno.photoUrl ? aluno.aluno.photoUrl : `/user.png`
+                    }
                     alt="avatar"
                     className="h-9 w-9 mr-2 md:w-12 md:h-12 rounded-full shadow-md "
                   />
@@ -138,6 +140,16 @@ export default function Index(aluno: any) {
                         isActive ? activeClassName : NoaActiveClassName
                       }>
                       MONTAGEM
+                    </NavLink>
+                  </li>
+                  <li className="font-semibold text-gray-600 hover:text-blue-600">
+                    <NavLink
+                      to="/aluno/grupo"
+                      onClick={() => setNavbar(!navbar)}
+                      className={({ isActive }) =>
+                        isActive ? activeClassName : NoaActiveClassName
+                      }>
+                      GRUPOS
                     </NavLink>
                   </li>
                 </>

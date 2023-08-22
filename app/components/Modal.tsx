@@ -5,7 +5,7 @@ function Modal({ children, onClose }) {
       className="justify-center bg-white/80  items-center flex overflow-x-hidden overflow-y-auto fixed  inset-0 z-50 outline-none focus:outline-none"
       onClick={onClose}>
       <dialog
-        className="relative  min-h-[350px]  mx-auto max-w-3xl "
+        className="relative  min-h-[350px]  mx-auto  "
         open
         onClick={(event) => event.stopPropagation()}>
         {children}

@@ -33,7 +33,9 @@ import {
 } from "@/components/ui/select";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const aluno = await getAluno(Number(params.idaluno));
+  const alunoa = await getAluno(Number(params.idaluno));
+  const aluno = alunoa[0];
+
   const historico = await getHistorico(Number(params.idaluno));
   return json({ aluno, historico });
 };

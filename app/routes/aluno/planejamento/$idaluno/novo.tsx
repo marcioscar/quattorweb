@@ -13,12 +13,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import ptBR from "date-fns/locale/pt-BR";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { updatePlanejamento } from "@/utils/aluno.server";

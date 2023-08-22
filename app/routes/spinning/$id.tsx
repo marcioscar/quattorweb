@@ -41,7 +41,9 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
-  const aluno = await getAluno(Number(params.id));
+  const alunoa = await getAluno(Number(params.id));
+  const aluno = alunoa[0];
+
   const aulas = await getSpinning();
   const agendamentos = await getAgendamentos();
   return json({ aluno, aulas, agendamentos });

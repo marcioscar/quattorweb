@@ -1,19 +1,35 @@
 // @ts-ignore
-import { endOfDay, format, parse } from "date-fns";
+import { endOfDay, format, getWeek } from "date-fns";
 import { prisma } from "./prisma.server";
 import fetch from "@remix-run/web-fetch";
-import ptBR from "date-fns/locale/pt-BR";
 import { v4 as uuidv4 } from "uuid";
 
 const EVO_AUTH = process.env.NEXT_PUBLIC_EVO_AUTH;
 
 export const getAluno = async (matricula: number) => {
+  const aluno = await fetch(
+    `https://evo-integracao.w12app.com.br/api/v1/members/basic?idMember=${matricula}&take=1&skip=0`,
+
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Basic " + btoa(EVO_AUTH as string),
+      },
+    }
+  );
+
+  // return Object.assign({}, aluno.json());
+  return aluno.json();
+};
+
+export const gstBasico = async (matricula: number) => {
   if (!matricula) {
     return null;
   }
   try {
     const aluno = await fetch(
       `https://evo-integracao.w12app.com.br/api/v1/members/${matricula}`,
+      // `https://evo-integracao.w12app.com.br/api/v1/members/basic?idMember=${matricula}take=50&skip=0`,
 
       {
         method: "GET",
@@ -26,6 +42,7 @@ export const getAluno = async (matricula: number) => {
     // if (aluno.status === 400) {
     //   throw "Aluno não Encontrado";
     // }
+
     return aluno.json();
   } catch (error) {
     throw error;
@@ -55,7 +72,7 @@ export const getAlunoGym = async (matricula: number) => {
   }
 };
 
-export const getAlunoNome = async (nome: string) => {
+export const getAlunoNome = async (nome: any) => {
   if (!nome) {
     return null;
   }
@@ -110,6 +127,7 @@ export const updateHistorico = async (historico: any) => {
         push: {
           treino: historico.treino,
           data: new Date(),
+          semana: getWeek(new Date()),
         },
       },
     },
@@ -118,6 +136,83 @@ export const updateHistorico = async (historico: any) => {
       treinos: {
         treino: historico.treino,
         data: new Date(),
+        semana: getWeek(new Date()),
+      },
+    },
+  });
+};
+export const cadGrupo = async (grupo: any) => {
+  const id = grupo.id ? grupo.id : "000000000000000000000000";
+  // console.log(grupo);
+  return prisma.grupo.upsert({
+    where: {
+      id: id,
+    },
+    update: {
+      nome: grupo.grupo,
+      numero: Number(grupo.numero),
+    },
+    create: {
+      nome: grupo.grupo,
+      numero: Number(grupo.numero),
+    },
+  });
+};
+export const delGrupo = async (grupo: any) => {
+  return prisma.grupo.delete({ where: { id: grupo.id } });
+};
+// export const cadGrupo = async (grupo: any) => {
+//   return prisma.grupo.create({
+//     data: {
+//       nome: grupo.grupo,
+//       numero: Number(grupo.numero),
+//     },
+//   });
+// };
+export const updateGrupo = async (aluno: any) => {
+  // const { photoUrl } = await getAluno(aluno.idMember);
+  const arrAluno = await getAluno(aluno.idMember);
+  const { photoUrl } = arrAluno[0];
+
+  return prisma.grupo.update({
+    where: {
+      id: aluno.grupo,
+    },
+    data: {
+      alunos: {
+        push: {
+          nome: aluno.nome,
+          idMember: Number(aluno.idMember),
+          photo: photoUrl ? photoUrl : "",
+        },
+      },
+    },
+  });
+};
+
+export const getGrupo = async (grupo: any) => {
+  return prisma.grupo.findUnique({
+    where: {
+      id: grupo,
+    },
+  });
+};
+export const getGrupos = async () => {
+  return prisma.grupo.findMany();
+};
+
+export const deleteAluno = async (aluno: any) => {
+  return prisma.grupo.update({
+    where: {
+      id: aluno.id,
+    },
+    data: {
+      alunos: {
+        deleteMany: {
+          where: {
+            idMember: Number(aluno.idMember),
+          },
+        },
       },
     },
   });
@@ -251,8 +346,6 @@ export const updatePlanejamentoTreino1 = async (historico: any, dias: any) => {
 };
 
 export const updatePlanejamentoTreino = async (treino: any, dias: any) => {
-  console.log(treino);
-
   return prisma.historico.update({
     where: {
       aluno: parseInt(treino.aluno),
@@ -290,6 +383,17 @@ export const updateFicha = async (ficha: any) => {
     },
   });
 };
+
+export const getHistoricoSemana = async () => {
+  return prisma.historico.findMany({
+    where: {
+      treinos: {
+        some: { semana: getWeek(new Date()) },
+      },
+    },
+  });
+};
+
 export const getHistorico = async (historico: any) => {
   if (!historico) {
     return null;

@@ -24,7 +24,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export default function Planejamento() {
   const nome = useFetcher();
   const alunos = nome.data?.alunos;
-  console.log(alunos);
 
   return (
     <>

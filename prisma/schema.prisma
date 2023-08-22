@@ -21,6 +21,7 @@ type TreinosExercicios {
 type HistoricoTreinos {
   data   DateTime @db.Date
   treino String?
+  semana Int?
 }
 
 type Planejados {
@@ -30,6 +31,7 @@ type Planejados {
   dia String[]
   id String?
 }
+
 model historico {
   id      String             @id @default(auto()) @map("_id") @db.ObjectId
   aluno   Int                @unique
@@ -39,7 +41,6 @@ model historico {
   treinos HistoricoTreinos[]
   planejados Planejados[]
 }
-
 model treinos {
   id         String              @id @default(auto()) @map("_id") @db.ObjectId
   exercicios TreinosExercicios[]
@@ -71,4 +72,11 @@ type aluno {
   aula    String
   Hora    String
   alunos  aluno[]
+ }
+
+ model grupo {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome    String
+  alunos aluno[]
+  numero Int
  }

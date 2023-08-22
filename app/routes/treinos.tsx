@@ -64,7 +64,16 @@ export default function Treino() {
             <option value="29">29 - (09/07 a 15/07)</option>
             <option value="30">30 - (16/07 a 22/07)</option>
             <option value="31">31 - (23/07 a 29/07)</option>
-            <option value="32">32 - (30/07 a 05/08)</option>
+            <option value="32">32 - (06/07 a 12/07)</option>
+            <option value="33">33 - (13/08 a 19/08)</option>
+            <option value="34">34 - (20/08 a 26/08)</option>
+            <option value="35">35 - (27/08 a 02/09)</option>
+            <option value="36">36 - (03/09 a 09/09)</option>
+            <option value="37">37 - (10/09 a 16/09)</option>
+            <option value="38">38 - (17/09 a 23/08)</option>
+            <option value="39">39 - (24/09 a 30/08)</option>
+            <option value="40">40 - (01/10 a 07/10)</option>
+            <option value="41">41 - (08/10 a 13/10)</option>
           </select>
         </semana.Form>
       </div>

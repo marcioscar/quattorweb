@@ -53,9 +53,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     });
   }
 
-  const aluno = await getAluno(
+  const alunoa = await getAluno(
     session.get("aluno").id ? session.get("aluno").id : ""
   );
+  const aluno = alunoa[0];
+
+  // const aluno = await getAluno(
+  //   session.get("aluno").id ? session.get("aluno").id : ""
+  // );
   const aulas = await getSpinning();
   const agendamentos = await getAgendamentos();
   return json({ aluno, aulas, agendamentos });
