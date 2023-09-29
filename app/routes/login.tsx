@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
   const matricula = form.get("matricula");
-  const redi = form.get("redirectTo") || "..";
+  const redi = form.get("redirectTo") || "/";
 
   // @ts-ignore
   const alunoa = await getAluno(matricula);

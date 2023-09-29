@@ -18,7 +18,7 @@ import {
 import stylesheet from "~/tailwind.css";
 import Nav from "./components/Nav";
 import { getSession } from "./session.server";
-import { getAluno, getBasico } from "./utils/aluno.server";
+import { getAluno } from "./utils/aluno.server";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 

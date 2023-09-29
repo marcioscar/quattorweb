@@ -143,7 +143,9 @@ export const updateHistorico = async (historico: any) => {
 };
 export const cadGrupo = async (grupo: any) => {
   const id = grupo.id ? grupo.id : "000000000000000000000000";
-  // console.log(grupo);
+  const inicio = new Date(grupo.inicio);
+  const fim = new Date(grupo.fim);
+  console.log(grupo);
   return prisma.grupo.upsert({
     where: {
       id: id,
@@ -151,10 +153,14 @@ export const cadGrupo = async (grupo: any) => {
     update: {
       nome: grupo.grupo,
       numero: Number(grupo.numero),
+      inicio: inicio,
+      fim: fim,
     },
     create: {
       nome: grupo.grupo,
       numero: Number(grupo.numero),
+      inicio: inicio,
+      fim: fim,
     },
   });
 };
@@ -171,8 +177,8 @@ export const delGrupo = async (grupo: any) => {
 // };
 export const updateGrupo = async (aluno: any) => {
   // const { photoUrl } = await getAluno(aluno.idMember);
-  const arrAluno = await getAluno(aluno.idMember);
-  const { photoUrl } = arrAluno[0];
+  // const arrAluno = await getAluno(aluno.idMember);
+  // const { photoUrl } = arrAluno[0];
 
   return prisma.grupo.update({
     where: {
@@ -183,7 +189,8 @@ export const updateGrupo = async (aluno: any) => {
         push: {
           nome: aluno.nome,
           idMember: Number(aluno.idMember),
-          photo: photoUrl ? photoUrl : "",
+          photo: aluno.photo,
+          // photo: photoUrl ? photoUrl : "",
         },
       },
     },
@@ -385,14 +392,17 @@ export const updateFicha = async (ficha: any) => {
 };
 
 export const getHistoricoSemana = async () => {
-  return prisma.historico.findMany({
-    where: {
-      treinos: {
-        some: { semana: getWeek(new Date()) },
-      },
-    },
-  });
+  return prisma.historico.findMany();
 };
+// export const getHistoricoSemana = async () => {
+//   return prisma.historico.findMany({
+//     where: {
+//       treinos: {
+//         some: { semana: getWeek(new Date()) },
+//       },
+//     },
+//   });
+// };
 
 export const getHistorico = async (historico: any) => {
   if (!historico) {

@@ -34,7 +34,7 @@ type Planejados {
 
 model historico {
   id      String             @id @default(auto()) @map("_id") @db.ObjectId
-  aluno   Int                @unique
+  aluno   Int?                @unique
   historico String?
   patologias String?
   nivel String?
@@ -77,6 +77,8 @@ type aluno {
  model grupo {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   nome    String
-  alunos aluno[]
-  numero Int
+  alunos  aluno[]
+  numero  Int
+  inicio  DateTime? @db.Date 
+  fim  DateTime? @db.Date 
  }

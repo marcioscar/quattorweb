@@ -12,7 +12,7 @@ export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   let values = Object.fromEntries(formData);
   const grupo = await cadGrupo(values);
-  console.log(values);
+
   return redirect(`..`);
 }
 export default function Novo() {
@@ -29,7 +29,6 @@ export default function Novo() {
         <div className=" text-center mb-4">Novo Grupo</div>
         <div className="grid w-full grid-cols-2 max-w-sm items-center gap-1.5">
           <Label htmlFor="grupo">Grupo</Label>
-
           <Input
             type="text"
             id="grupo"
@@ -45,6 +44,25 @@ export default function Novo() {
             placeholder="Número de Membros"
           />
         </div>
+        <div className="grid w-full grid-cols-2 max-w-sm items-center gap-1.5">
+          <Label htmlFor="inicio">Início</Label>
+          <input
+            type="date"
+            id="inicio"
+            name="inicio"
+            className="w-full p-2 rounded-xl my-2"
+            defaultValue={new Date().toISOString().substring(0, 10)}
+          />
+          <Label htmlFor="fim">Fim</Label>
+          <input
+            type="date"
+            id="fim"
+            name="fim"
+            className="w-full p-2 rounded-xl my-2"
+            defaultValue={new Date().toISOString().substring(0, 10)}
+          />
+        </div>
+
         <Button type="submit">Cadastrar</Button>
       </Form>
 

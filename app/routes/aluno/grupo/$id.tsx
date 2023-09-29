@@ -58,6 +58,24 @@ export default function Editar() {
             defaultValue={grupo.numero}
           />
         </div>
+        <div className="grid w-full grid-cols-2 max-w-sm items-center gap-1.5">
+          <Label htmlFor="inicio">Início</Label>
+          <input
+            type="date"
+            id="inicio"
+            name="inicio"
+            className="w-full p-2 rounded-xl my-2"
+            defaultValue={new Date(grupo.inicio).toISOString().substring(0, 10)}
+          />
+          <Label htmlFor="fim">Fim</Label>
+          <input
+            type="date"
+            id="fim"
+            name="fim"
+            className="w-full p-2 rounded-xl my-2"
+            defaultValue={new Date(grupo.fim).toISOString().substring(0, 10)}
+          />
+        </div>
         <div className="flex place-content-end gap-2">
           <Button name="_action" value="update" type="submit">
             Salvar

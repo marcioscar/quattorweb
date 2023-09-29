@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { getAulas } from "~/utils/aulas.server";
 import { FaWhatsapp } from "react-icons/fa";
 import { GiGymBag } from "react-icons/gi";
@@ -136,6 +136,18 @@ export default function Index() {
         </div>
       </section> */}
       <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
+        <div className="mx-2 mt-5  md:block">
+          <img className="rounded-lg bg-cover " src="/espetaculo.jpg" alt="" />
+          <div className="flex flex-row justify-between items-start mt-1">
+            <Link
+              to="http://www.google.com"
+              className="text-lg mx-auto bg-yellow-400 block p-2 w-full text-center rounded-md font-bold text-blue-800 ">
+              Comprar Ingressos
+            </Link>
+            {/* <p className="text-gray-500 mb-4">Comprar Ingressos </p> */}
+            {/* <p className="text-sm text-gray-800">Infantil</p> */}
+          </div>
+        </div>
         <div className="mx-2 mt-5">
           <img className="rounded-lg bg-cover" src="/amigo.jpg" alt="" />
           <div className="flex flex-row justify-between items-start mt-4">
@@ -146,17 +158,18 @@ export default function Index() {
             </div> */}
           </div>
         </div>
-        <div className="mx-2 mt-5 hidden md:block">
+
+        {/* <div className="mx-2 mt-5 hidden md:block">
           <img className="rounded-lg bg-cover " src="/foto_judo.jpg" alt="" />
           <div className="flex flex-row justify-between items-start mt-4">
             <div>
               <p className="text-lg font-bold text-blue-400 ">Judo</p>
               <p className="text-gray-500 mb-4">Infantil </p>
-              {/* <p className="text-sm text-gray-800">Infantil</p> */}
+              
             </div>
           </div>
-        </div>
-        <div className="mx-2 mt-5">
+        </div> */}
+        <div className="mx-2 hidden  md:block mt-5">
           <img className="rounded-lg bg-cover" src="/foto_natacao.jpg" alt="" />
           <div className="flex flex-row justify-between items-start mt-4">
             <div>

@@ -66,15 +66,42 @@ export default function Index(aluno: any) {
                   HOME
                 </NavLink>
               </li>
+              {aluno.aluno?.idMember && (
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <NavLink
+                    to="/aluno"
+                    prefetch="render"
+                    onClick={() => setNavbar(!navbar)}
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : NoaActiveClassName
+                    }>
+                    TREINOS
+                  </NavLink>
+                </li>
+              )}
+              {aluno.aluno?.idMember && (
+                <li className="font-semibold text-gray-600 hover:text-blue-600">
+                  <NavLink
+                    to="/especial"
+                    prefetch="render"
+                    onClick={() => setNavbar(!navbar)}
+                    className={({ isActive }) =>
+                      isActive ? activeClassName : NoaActiveClassName
+                    }>
+                    ESPECIAIS
+                  </NavLink>
+                </li>
+              )}
+
               <li className="font-semibold text-gray-600 hover:text-blue-600">
                 <NavLink
-                  to="/aluno"
+                  to="/login"
                   prefetch="render"
                   onClick={() => setNavbar(!navbar)}
                   className={({ isActive }) =>
                     isActive ? activeClassName : NoaActiveClassName
                   }>
-                  TREINOS
+                  ALUNO
                 </NavLink>
               </li>
               <li className=" md:hidden font-semibold text-gray-600 hover:text-blue-600">

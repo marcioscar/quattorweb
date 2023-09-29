@@ -38,7 +38,6 @@ type grupo = {
 //Loader dos dados dos alunos e  treinos da semana atual
 export const loader: LoaderFunction = async ({ request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
-  // console.log(session.get("aluno").id);
   const alId = session.get("aluno")?.id;
   if (!alId) {
     session.set("aluno", {
@@ -116,7 +115,7 @@ export default function Treino() {
 
   const grupotreinoPlan = _.map(
     _.groupBy(PlaneTreino, "data"),
-    (data, idx, dt, feito) => {
+    (data: any, idx: any, dt: any, feito: any) => {
       return { data: idx, treino: data, dt: dt, feito: feito };
     }
   );
