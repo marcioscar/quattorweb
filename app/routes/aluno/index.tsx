@@ -93,18 +93,6 @@ export default function Treino() {
     return { data: idx, treino: data };
   });
 
-  // const PlaneTreino = _.mapValues(
-  //   _.orderBy(historicoTreinos?.planejados, ["data", "asc"]),
-  //   function (o) {
-  //     const dt = o.data;
-  //     const feito = o.feito;
-  //     const data = format(new Date(o.data), "EEEEEE - dd/MM", {
-  //       locale: ptBR,
-  //     });
-  //     return { treino: o.treinoP, data, dt, feito };
-  //   }
-  // );
-
   const PlaneTreino = _.mapValues(historicoTreinos?.planejados, function (o) {
     return { treino: o.treinoP, dia: o.dia };
   });
@@ -217,6 +205,11 @@ export default function Treino() {
   }, [grupo, tipoTreinoGrupo]);
   const textInput = useRef(null);
 
+  const planoAluno = _.filter(aluno.memberships, {
+    membershipStatus: "active",
+  })
+    .map((n) => n.name)
+    .toString();
   return (
     <>
       {/* <Outlet /> */}
@@ -232,6 +225,7 @@ export default function Treino() {
             {aluno?.firstName} {aluno?.lastName} -{" "}
             <span className="font-mono text-gray-400"> {aluno?.idMember}</span>
           </h5>
+
           {/* {ultimosTreinos && (
             <>
               <h2 className="  text-blue-600 rounded-md  text-md mt-4">
@@ -418,117 +412,22 @@ export default function Treino() {
               <div className="text-gray-500 grid  gap-2 grid-cols-3">
                 {ultimos.map((u: any, index) => (
                   <div key={index} className="">
-                    <div className="mt-1 mb-4  py-2 px-2 rounded-md my-4">
-                      <div>{u.data}</div>
-                      <div className="font-semibold text-teal-600">
+                    <Card className=" h-full ">
+                      <CardHeader>
+                        <CardTitle>{u.data}</CardTitle>
                         {u.treino.map((t: any, index: any) => (
-                          <div key={index}>{t.treino}</div>
+                          <CardDescription key={index}>
+                            {t.treino}
+                          </CardDescription>
                         ))}
-                      </div>
-                    </div>
+                      </CardHeader>
+                    </Card>
                   </div>
                 ))}
               </div>
             </>
           )}
         </div>
-
-        {/* //TIPO DE TREINO */}
-        {/* <div className="w-full max-w-lg mb-2 md:max-w-6xl px-6 py-3 mx-auto border bg-white rounded-lg  ">
-          <h1 className="font-semibold mb-3">Treinos por Semana</h1>
-          <div className="flex justify-between text-sm text-center item-center">
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="2"
-                value="2X"
-                onChange={handleTipoTreino}
-                className="hidden peer"
-              />
-              <label
-                htmlFor="2"
-                className="inline-block cursor-pointer w-12 h-10 p-3  font-medium  text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                2
-              </label>
-            </div>
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="3"
-                value="3X"
-                onChange={handleTipoTreino}
-                className="hidden peer"
-              />
-              <label
-                htmlFor="3"
-                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                3
-              </label>
-            </div>
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="4"
-                value="4X"
-                onChange={handleTipoTreino}
-                className="hidden peer"
-              />
-              <label
-                htmlFor="4"
-                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                4
-              </label>
-            </div>
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="5"
-                value="5X"
-                onChange={handleTipoTreino}
-                className="hidden peer"
-              />
-              <label
-                htmlFor="5"
-                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                5
-              </label>
-            </div>
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="6"
-                value="6X"
-                onChange={handleTipoTreino}
-                className="hidden peer"
-              />
-              <label
-                htmlFor="6"
-                className="inline-block cursor-pointer w-12 h-10 p-3 font-medium text-white rounded-full bg-stone-400 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                6
-              </label>
-            </div>
-            <div>
-              <input
-                name="semana"
-                type="radio"
-                id="grupo"
-                value="grupo"
-                className="hidden peer"
-                onChange={handleTipoTreino}
-              />
-              <label
-                htmlFor="grupo"
-                className="inline-block cursor-pointer w-16 h-10 p-3 font-medium text-white rounded-full bg-stone-500 peer-hover:bg-gray-300 peer-hover:text-white peer-checked:bg-orange-400 peer-checked:text-black">
-                Grupo
-              </label>
-            </div>
-          </div>
-        </div> */}
 
         <div className=" max-w-lg mt-2 flex mx-auto ">
           <select
@@ -559,19 +458,20 @@ export default function Treino() {
               defaultValue={aluno.idMember}
             />
 
-            {grupo !== "Selecione o Treino" && (
-              <div className=" block justify-center mx-auto max-w-xl ">
-                <div className="flex flex-row  justify-evenly  font-bold text-orange-500 items-center m-2 text-xl">
-                  {grupo}
-                  <button className="bg-blue-500   inline-flex gap-3 items-center px-3 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md  hover:shadow-lg hover:bg-green-800">
-                    <FaCheck />
-                    {transition.state === "submitting"
-                      ? "Atualizando..."
-                      : "Feito"}
-                  </button>
+            {grupo !== "Selecione o Treino" &&
+              planoAluno !== "MEDIDA CERTA - 2023" && (
+                <div className=" block justify-center mx-auto max-w-xl ">
+                  <div className="flex flex-row  justify-evenly  font-bold text-orange-500 items-center m-2 text-xl">
+                    {grupo}
+                    <button className="bg-blue-500   inline-flex gap-3 items-center px-3 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-md  hover:shadow-lg hover:bg-green-800">
+                      <FaCheck />
+                      {transition.state === "submitting"
+                        ? "Atualizando..."
+                        : "Feito"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {
               // @ts-ignore

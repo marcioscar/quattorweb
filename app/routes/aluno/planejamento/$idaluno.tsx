@@ -14,7 +14,7 @@ import {
   useTransition,
 } from "@remix-run/react";
 import _ from "lodash";
-import { AiFillCloseCircle, AiFillEdit } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -31,6 +31,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const alunoa = await getAluno(Number(params.idaluno));
@@ -57,6 +59,8 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Idaluno() {
   const { aluno, historico } = useLoaderData();
+  const ultimosTreinos = _.takeRight(historico?.treinos, 3);
+
   const transition = useTransition();
 
   // const PlaneTreino = _.mapValues(
@@ -90,14 +94,21 @@ export default function Idaluno() {
     return treino;
   });
 
-  // console.log(PlaneTreino.filter)
-
   // const grupotreino = _.map(
   //   _.groupBy(PlaneTreino, "data"),
   //   (data, idx, teste) => {
   //     return { data: idx, treino: data, dt: teste };
   //   }
   // );
+  const hitTreino = _.mapValues(historico?.treinos, function (o) {
+    const data = format(new Date(o.data), "EEEEEE - dd/MM", {
+      locale: ptBR,
+    });
+    return { treino: o.treino, data };
+  });
+  const grupotreinoFeito = _.map(_.groupBy(hitTreino, "data"), (data, idx) => {
+    return { data: idx, treino: data };
+  });
 
   const grupotreino = _.map(
     _.groupBy(PlaneTreino, "data"),
@@ -107,6 +118,7 @@ export default function Idaluno() {
   );
 
   const ultimos = _.takeRight(grupotreino, 7);
+  const ultimosFeitos = _.takeRight(grupotreinoFeito, 7);
 
   return (
     <div>
@@ -124,13 +136,16 @@ export default function Idaluno() {
             <div className="grid grid-cols-1 items-center justify-between ">
               <div className="flex items-center space-x-2 mt-3">
                 <Avatar className="w-20 h-20">
-                  <AvatarImage src={aluno.photo ? aluno.photo : `/user.png`} />
+                  <AvatarImage
+                    src={aluno.photoUrl ? aluno.photoUrl : `/user.png`}
+                  />
                   <AvatarFallback>Foto</AvatarFallback>
                 </Avatar>
                 <div className="space-y-2">
                   <p className=" font-medium  text-lg leading-none">
                     {aluno.firstName}
                   </p>
+
                   <p className="text-sm text-stone-400 text-muted-foreground">
                     {_.filter(aluno.memberships, {
                       membershipStatus: "active",
@@ -143,10 +158,10 @@ export default function Idaluno() {
               <div
                 className={
                   historico?.nivel === "iniciante"
-                    ? " bg-red-600 text-white rounded-md font-medium flex justify-self-end"
+                    ? " bg-red-600 text-white  rounded-md font-medium flex justify-self-center md:justify-self-end"
                     : historico?.nivel === "intermediario"
-                    ? "bg-orange-500 text-white rounded-md font-medium flex justify-self-end"
-                    : "bg-green-500 text-white rounded-md font-medium flex justify-self-end"
+                    ? "bg-orange-500 text-white  rounded-md font-medium flex justify-self-center md:justify-self-end"
+                    : "bg-green-500 text-white rounded-md font-medium flex justify-self-center md:justify-self-end"
                 }>
                 <Select name="nivel" defaultValue={historico?.nivel}>
                   <SelectTrigger className="w-[180px]">
@@ -159,6 +174,11 @@ export default function Idaluno() {
                   </SelectContent>
                 </Select>
               </div>
+              <Link
+                className="bg-blue-500 text-white w-[180px] font-medium justify-self-center text-sm  md:mt-0 mt-2 rounded-md text-center  p-2"
+                to={"feito"}>
+                Lançar Treino
+              </Link>
 
               {/* <input
                 className="font-medium text-right text-green-600 border-b p-2"
@@ -196,7 +216,7 @@ export default function Idaluno() {
               name="_action"
               value="salvar"
               // variant="secondary"
-              className="bg-stone-300  text-black py-2 px-1 rounded-md">
+              className="bg-green-300  text-black py-2 px-1 rounded-md">
               {transition.state === "submitting"
                 ? "Atualizando..."
                 : "Atualizar"}
@@ -506,59 +526,6 @@ export default function Idaluno() {
                     </CardDescription>
                   </CardHeader>
                 </Card>
-
-                {/* {ultimos.map((u: any, index) => (
-                  <div key={index} className="border rounded-md">
-                    <div className=" text-center">
-                      <div className="bg-stone-200">{u.data}</div>
-                      <div className="  py-1 text-stone-600 text-center">
-                        {u.treino.map((t: any, index: any) => (
-                          <Form
-                            method="post"
-                            className="flex items-center place-content-between m-2"
-                            key={index}>
-                            {t.treino}
-
-                            <input
-                              type="text"
-                              value={t.treino}
-                              hidden
-                              name="treino"
-                              readOnly
-                            />
-                            <input
-                              type="text"
-                              value={t.dt}
-                              hidden
-                              name="data"
-                              readOnly
-                            />
-                            <input
-                              hidden
-                              type="number"
-                              name="aluno"
-                              readOnly
-                              defaultValue={aluno.idMember}
-                            />
-                            {t.feito ? (
-                              <span className="inline-flex items-center justify-center px-1.5 py-1 mr-2 text-xs leading-none text-white  bg-green-500 rounded-full">
-                                ok
-                              </span>
-                            ) : (
-                              <Button
-                                name="_action"
-                                value="delete"
-                                variant="outline"
-                                size="icon">
-                                <AiFillCloseCircle className="w-5 h-5  text-red-500" />
-                              </Button>
-                            )}
-                          </Form>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))} */}
               </div>
             </>
           )}
@@ -566,10 +533,31 @@ export default function Idaluno() {
       </div>
 
       <Link
-        className="bg-green-400 mt-3 w-1/2 container md:w-1/4 rounded-lg text-center block mb-24 p-2"
+        className="bg-green-500 mt-3 text-white w-1/2 container md:w-1/4 rounded-lg text-center block mb-24 p-2"
         to={"novo"}>
-        Novo Treino
+        Planejar Treinos
       </Link>
+      {ultimosTreinos.length > 0 && (
+        <>
+          <h2 className="  text-stone-500 font-medium mb-1 text-center mt-2">
+            ÚLTIMOS TREINOS
+          </h2>
+          <div className="text-stone-600 text-center place-content-center gap-2 container mx-auto grid grid-cols-2 md:gap-2 md:grid-cols-4 lg:grid-cols-7 lg:container-2xl">
+            {ultimosFeitos.map((u: any, index) => (
+              <div key={index} className="">
+                <Card className=" h-full ">
+                  <CardHeader>
+                    <CardTitle>{u.data}</CardTitle>
+                    {u.treino.map((t: any, index: any) => (
+                      <CardDescription key={index}>{t.treino}</CardDescription>
+                    ))}
+                  </CardHeader>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

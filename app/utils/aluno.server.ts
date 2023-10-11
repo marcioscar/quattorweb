@@ -125,7 +125,7 @@ export const updateHistorico = async (historico: any) => {
     update: {
       treinos: {
         push: {
-          treino: historico.treino,
+          treino: historico.treino ? historico.treino : historico.treinolivre,
           data: new Date(),
           semana: getWeek(new Date()),
         },
