@@ -77,16 +77,16 @@ export default function Grupocadastrado() {
           <option value="40">40 - (01/10 a 07/10)</option>
           <option value="41">41 - (08/10 a 13/10)</option>
           <option value="42">42 - (15/10 a 21/10)</option>
-          <option value="44">44 - (22/10 a 28/10)</option>
-          <option value="45">45 - (29/10 a 04/11)</option>
-          <option value="46">46 - (05/11 a 11/11)</option>
-          <option value="47">47 - (12/11 a 18/11)</option>
-          <option value="48">48 - (19/11 a 25/11)</option>
-          <option value="49">49 - (26/11 a 02/12)</option>
-          <option value="50">50 - (03/12 a 09/12)</option>
-          <option value="51">51 - (10/12 a 16/12)</option>
-          <option value="52">52 - (17/12 a 23/12)</option>
-          <option value="53">53 - (24/12 a 30/12)</option>
+          <option value="43">43 - (22/10 a 28/10)</option>
+          <option value="44">44 - (29/10 a 04/11)</option>
+          <option value="45">45 - (05/11 a 11/11)</option>
+          <option value="46">46 - (12/11 a 18/11)</option>
+          <option value="47">47 - (19/11 a 25/11)</option>
+          <option value="48">48 - (26/11 a 02/12)</option>
+          <option value="49">49 - (03/12 a 09/12)</option>
+          <option value="50">50 - (10/12 a 16/12)</option>
+          <option value="51">51 - (17/12 a 23/12)</option>
+          <option value="52">52 - (24/12 a 30/12)</option>
         </select>
         <select
           onChange={(event) => setGrupo(event.target.value)}
@@ -113,11 +113,10 @@ export default function Grupocadastrado() {
           <option value="MEMBROS SUPERIORES GERAL">
             MEMBROS SUPERIORES GERAL
           </option>
-          <option value="2X SEMANA - TREINO A">2X SEMANA - TREINO A</option>
-          <option value="2X SEMANA - TREINO B">2X SEMANA - TREINO B</option>
-          <option value="3X SEMANA - TREINO A">3X SEMANA - TREINO A</option>
-          <option value="3X SEMANA - TREINO B">3X SEMANA - TREINO B</option>
-          <option value="3X SEMANA - TREINO C">3X SEMANA - TREINO C</option>
+          <option value="INICIANTE 1">INICIANTE 1</option>
+          <option value="INICIANTE 2">INICIANTE 2</option>
+          <option value="INICIANTE 3">INICIANTE 3</option>
+          <option value="INICIANTE 4">INICIANTE 4</option>
         </select>
       </div>
       <ul>

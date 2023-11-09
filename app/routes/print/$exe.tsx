@@ -26,7 +26,7 @@ export default function Treino() {
             {exercicios.map((exec: any, index: any) => (
               <tr key={exec.execid}>
                 <td>
-                  <div className=" font-extrabold text-3xl">
+                  <div className=" font-extrabold text-3xl mb-2">
                     {index + 1} - {exec.nome}
                   </div>
                   <div className="pl-8 space-y-1">
@@ -34,15 +34,15 @@ export default function Treino() {
                       <GiWeightLiftingUp className=" h-4 w-4 text-gray-400 mr-3" />
                       {exec.carga}
                     </div> */}
-                    <div className="items-center flex font-semibold text-lg">
+                    {/* <div className="items-center flex font-semibold text-lg">
                       <img
                         src="/ponto_verde.svg"
                         alt="bolas"
                         className="w-3  mr-3  text-red-600"
                       />
                       {exec.carga}
-                    </div>
-                    <div className="items-center flex font-semibold text-lg">
+                    </div> */}
+                    <div className="items-center flex font-semibold text-lg mb-2">
                       {/* <ImSortNumbericDesc className=" h-4 w-4 text-gray-400 mr-3" /> */}
                       <img
                         src="/ponto_vermelho.svg"
@@ -72,9 +72,9 @@ export default function Treino() {
       </div>
       <footer>
         <img
-          className=" h-[100px] pt-1 mx-auto items-center"
+          className=" h-[80px] pt-1 mx-auto items-center"
           alt="footer"
-          src="/semana.svg"
+          src="/semanahipertrofia2.svg"
         />
       </footer>
       {/* <footer>

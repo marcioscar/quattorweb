@@ -137,14 +137,14 @@ export default function Index() {
       </section> */}
       <div className="grid grid-cols-1 md:grid-cols-4  gap-x-2 lg:gap-x-3">
         <div className="mx-2 mt-5  md:block">
-          {/* <Link to="ballet"> */}
-          <img className="rounded-lg bg-cover " src="/belaweb.jpg" alt="" />
-          {/* </Link> */}
+          <Link to="ballet">
+            <img className="rounded-lg bg-cover " src="/belaweb.jpg" alt="" />
+          </Link>
           <div className="flex flex-row justify-between items-start mt-1">
             <Link
-              to="https://www.bilheteriadigital.com/espetaculo-de-ballet-classico-e-dancas-a-bela-e-a-fera-11-de-novembro"
+              to="ballet"
               className="text-lg mx-auto bg-yellow-300 block p-2 w-full text-center rounded-md font-bold text-blue-800 ">
-              Comprar Ingressos
+              Programa do Espetáculo
             </Link>
             {/* <p className="text-gray-500 mb-4">Comprar Ingressos </p> */}
             {/* <p className="text-sm text-gray-800">Infantil</p> */}

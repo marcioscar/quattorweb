@@ -11,7 +11,10 @@ const schema = z.object({
     .string()
     .min(4, { message: "Descrição do grupo com no mínimo 4 caracteres" }),
   semana: z.number().min(1, { message: "Informe o número da Semana" }),
-  nome: z.string().min(1, { message: "Informe o nome do exercício" }),
+  nome: z
+    .string()
+    .min(1, { message: "Informe o nome do exercício" })
+    .toUpperCase(),
   repeticoes: z.string().min(1, { message: "Repetições do exercício" }),
   carga: z.string().min(1, { message: "Informe as cargas do exercício " }),
   obs: z.string(),
@@ -90,21 +93,10 @@ export default function Cadastro() {
                           <option value="MEMBROS SUPERIORES GERAL">
                             MEMBROS SUPERIORES GERAL
                           </option>
-                          <option value="2X SEMANA - TREINO A">
-                            2X SEMANA - TREINO A
-                          </option>
-                          <option value="2X SEMANA - TREINO B">
-                            2X SEMANA - TREINO B
-                          </option>
-                          <option value="3X SEMANA - TREINO A">
-                            3X SEMANA - TREINO A
-                          </option>
-                          <option value="3X SEMANA - TREINO B">
-                            3X SEMANA - TREINO B
-                          </option>
-                          <option value="3X SEMANA - TREINO C">
-                            3X SEMANA - TREINO C
-                          </option>
+                          <option value="INICIANTE 1">INICIANTE 1</option>
+                          <option value="INICIANTE 2">INICIANTE 2</option>
+                          <option value="INICIANTE 3">INICIANTE 3</option>
+                          <option value="INICIANTE 4">INICIANTE 4</option>
                         </select>
                         <Errors className="text-red-500" />
                       </div>
@@ -121,12 +113,18 @@ export default function Cadastro() {
                           {...register("semana")}
                           className="rounded-md border-2 form-control block
                           w-full ">
-                          <option value="101">treino 1 </option>
-                          <option value="102">treino 2</option>
-                          <option value="103">treino 3</option>
-                          <option value="104">treino 4</option>
-                          <option value="105">treino 5</option>
-                          <option value="106">treino 6</option>
+                          <option value="111">treino 1 </option>
+                          <option value="112">treino 2</option>
+                          <option value="113">treino 3</option>
+                          <option value="114">treino 4</option>
+                          <option value="115">treino 5</option>
+                          <option value="116">treino 6</option>
+                          <option value="117">Melhor de Todas</option>
+                          <option value="118">Melhor de Todas 2</option>
+                          <option value="201">Iniciante 1</option>
+                          <option value="202">Iniciante 2</option>
+                          <option value="203">Iniciante 3</option>
+                          <option value="204">Iniciante 4</option>
                         </select>
                         <Errors className="text-red-500" />
                       </div>
