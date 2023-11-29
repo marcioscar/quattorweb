@@ -8,8 +8,8 @@ export default function Index(aluno: any) {
   const NoaActiveClassName = "text-orange-white";
 
   return (
-    <nav className=" w-full px-2 mx-auto  bg-stone-200 print:hidden">
-      <div className="justify-between  mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+    <nav className=" w-[97%] md:w-full rounded-md  mx-auto  bg-stone-300 print:hidden">
+      <div className="justify-between  pl-2 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 ">
             <NavLink to="/" className="flex items-center">

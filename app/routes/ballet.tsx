@@ -26,7 +26,7 @@ export default function Ballet() {
             {/* <TabsTrigger value="personagens">Personagens</TabsTrigger> */}
           </TabsList>
           <div>
-            <TabsContent value="historia" className="container sm">
+            <TabsContent value="historia" className="container sm ">
               <h2 className="scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight transition-colors first:mt-0">
                 A Bela e a Fera
               </h2>

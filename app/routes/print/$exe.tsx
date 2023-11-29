@@ -74,7 +74,7 @@ export default function Treino() {
         <img
           className=" h-[80px] pt-1 mx-auto items-center"
           alt="footer"
-          src="/semanahipertrofia2.svg"
+          src="/hipertrofia3.svg"
         />
       </footer>
       {/* <footer>
